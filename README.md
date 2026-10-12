@@ -29,24 +29,6 @@ The `papers` plugin turns a paper into text on your machine, and Claude reads th
 3. Claude reads the Markdown a section at a time, searches it with `grep`, and can come back to it
    in a later session without converting it again.
 
-Equations (1) and (4) of Lund, Murugan and Shock, "Spinning Billiards and Chaos"
-(arXiv:2505.15335, CC BY 4.0), as `academic-pdf-to-mkd` converted them from the PDF:
-
-```latex
-v _ {\parallel , 1} = \frac {1 - \alpha}{1 + \alpha} v _ {\parallel , 0} - \frac {2 \alpha}{1 + \alpha} u _ {0}, \tag {1}
-E = \frac {1}{2} v ^ {2} + \frac {1}{2} \alpha u ^ {2} = \text { const }, \tag {4}
-```
-
-and as the authors wrote them in their LaTeX source:
-
-```latex
-v_{\parallel,1} &= \frac{1-\alpha}{1+\alpha}\, v_{\parallel,0} - \frac{2\alpha}{1+\alpha}\, u_0\,,
-E = \tfrac{1}{2} v^2 + \tfrac{1}{2}\alpha u^2 = \text{const}\,,
-```
-
-They differ in spacing, alignment and the size of the fractions, and the conversion writes the
-equation numbers in; the mathematics is the same.
-
 `reference-verifier` checks a bibliography against Crossref, OpenAlex, Semantic Scholar and arXiv.
 It accepts a `.bib` or `.tex` file, or a PDF or Word manuscript's reference list, which Claude first
 copies into a `.bib`. It reports references it cannot find and details that disagree with the
