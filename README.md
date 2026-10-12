@@ -204,6 +204,4 @@ Code is under the [MIT licence](LICENSE) and text under [CC BY 4.0](LICENSE-docs
 `single-html-document` includes icons from [Lucide](https://lucide.dev) (ISC) and the Feather
 icons they derive from (MIT). Its patterns follow the examples in
 [html-effectiveness](https://github.com/ThariqS/html-effectiveness) (Copyright 2026 Anthropic PBC,
-Apache License 2.0). The excerpts above are from "Spinning Billiards and Chaos" by Jacob S. Lund,
-Jeff Murugan and Jonathan P. Shock
-([arXiv:2505.15335](https://arxiv.org/abs/2505.15335)), under CC BY 4.0.
+Apache License 2.0).
