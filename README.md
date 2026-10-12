@@ -146,7 +146,7 @@ The `documents` plugin makes finished documents from notes and Markdown:
 
 To have Claude guide you through installation, start Claude Code in any folder and paste:
 
-> Read https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/SETUP.md and take me through it.
+> Run curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/SETUP.md to read the setup guide, then take me through it.
 
 Claude asks what you work on and installs only the tools you want. To install by hand, enter these
 commands in Claude Code:

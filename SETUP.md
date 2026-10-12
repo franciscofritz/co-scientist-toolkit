@@ -2,7 +2,7 @@
 
 Start Claude Code in any folder and paste:
 
-> Read https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/SETUP.md and take me through it.
+> Run curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/SETUP.md to read the setup guide, then take me through it.
 
 Claude will ask about your work, install only the tools you choose, and explain each step.
 The rest of this file is instructions for Claude.
