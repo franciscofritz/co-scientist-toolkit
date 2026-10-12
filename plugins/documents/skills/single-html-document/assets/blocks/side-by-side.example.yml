@@ -1,0 +1,17 @@
+type: side-by-side
+data:
+  title: "Direct inline vs Blob-backed payload"
+  panels:
+    - label: "Direct inline"
+      title: "Best for narrative reports"
+      body: |
+        All assets inlined as Base64 inside the HTML. Simple. Fast to author.
+        Files stay small for narrative content.
+      accent: info
+    - label: "Blob-backed payload"
+      title: "Best for binary-heavy reports"
+      body: |
+        Attachments embedded as data records, materialised as `Blob` URLs only
+        when needed. Keeps the DOM clean even with many large downloads.
+      accent: success
+      tag: "recommended for media"

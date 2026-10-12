@@ -1,0 +1,28 @@
+type: mind-map
+data:
+  title: "Scoping the workshop"
+  direction: horizontal
+  root:
+    label: "AI in higher education"
+    body: "1-day workshop, ~30 participants"
+  branches:
+    - label: "Pedagogy"
+      kind: info
+      icon: book-open
+      children:
+        - { label: "Assessment redesign" }
+        - { label: "Plagiarism vs. authorship" }
+        - { label: "AI literacy curriculum" }
+    - label: "Operations"
+      kind: success
+      icon: layers
+      children:
+        - { label: "Tooling procurement" }
+        - { label: "Staff training programme" }
+    - label: "Risk and policy"
+      kind: warning
+      icon: shield-alert
+      children:
+        - { label: "Data protection (GDPR)" }
+        - { label: "Equitable access" }
+        - { label: "Compliance reporting" }

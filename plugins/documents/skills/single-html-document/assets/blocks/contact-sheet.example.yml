@@ -1,0 +1,47 @@
+type: contact-sheet
+data:
+  title: "Callout tones"
+  cellMinWidth: "11rem"
+  cells:
+    - label: "info"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(31,86,121,0.08)" stroke="#1f5679" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#1f5679" font-family="sans-serif" font-size="13" font-weight="600">Neutral commentary</text>
+        </svg>
+    - label: "success"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(46,110,64,0.08)" stroke="#2e6e40" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#2e6e40" font-family="sans-serif" font-size="13" font-weight="600">Working pattern</text>
+        </svg>
+    - label: "warning"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(190,132,22,0.10)" stroke="#be8416" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#be8416" font-family="sans-serif" font-size="13" font-weight="600">Footgun</text>
+        </svg>
+    - label: "danger"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(170,50,60,0.08)" stroke="#aa323c" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#aa323c" font-family="sans-serif" font-size="13" font-weight="600">Don&#8217;t do this</text>
+        </svg>
+    - label: "key"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(120,78,152,0.08)" stroke="#784e98" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#784e98" font-family="sans-serif" font-size="13" font-weight="600">Most important</text>
+        </svg>
+    - label: "neutral"
+      sublabel: "tone"
+      svg: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+          <rect x="2" y="2" width="116" height="46" rx="6" fill="rgba(60,60,60,0.06)" stroke="#555555" stroke-width="2"/>
+          <text x="60" y="30" text-anchor="middle" fill="#555555" font-family="sans-serif" font-size="13" font-weight="600">Generic emphasis</text>
+        </svg>

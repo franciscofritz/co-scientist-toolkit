@@ -1,0 +1,16 @@
+type: live-template
+packaging: interactive
+data:
+  title: "Stand-up message template"
+  description: "Edit any field and the message updates live."
+  template: |
+    Hi {team}, quick stand-up:
+    • Yesterday: {yesterday}
+    • Today: {today}
+    • Blockers: {blockers}
+  variables:
+    - { name: team,      label: "Team",       default: "growth",                            kind: text }
+    - { name: yesterday, label: "Yesterday",  default: "shipped the dashboard skeleton",    kind: multiline }
+    - { name: today,     label: "Today",      default: "wire up search filters",            kind: multiline }
+    - { name: blockers,  label: "Blockers",   default: "none",                              kind: text }
+  outputFormat: text

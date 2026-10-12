@@ -1,0 +1,12 @@
+{
+  "domain": "document",
+  "primaryRule": "moderate",
+  "targetGlob": [],
+  "targetNote": "No fixed location. Use the document or documents the user names.",
+  "sourcesGlob": ["<sources folder>/**/*"],
+  "sourcesNote": "Ask the user for the folder of sources the document is to be checked against. Glob only text-readable files in it (.md, .txt, .tex, .html, .csv, and PDFs only if a text version exists alongside).",
+  "outputDir": "same folder as the document",
+  "outputNames": { "findings": "{document-basename}-factcheck-{ts}.md", "fixplan": "{document-basename}-fixplan-{ts}.md" },
+  "guidance": "The deliverable is a document that makes factual claims; the sources are the files in the folder the user named. A claim is verified when a source asserts the same thing. Flag numbers, dates and attributions that differ from the source, quotes that are not verbatim, and characterisations that overstate the source. Use primaryRule 'strict' if the user wants only the originating source accepted, or 'quote-verbatim' if exact quotation is what matters.",
+  "note": "Run per document. If the sources folder holds secondary material only, expect many verified-secondary verdicts."
+}

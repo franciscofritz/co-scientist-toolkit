@@ -1,0 +1,13 @@
+[project]
+name = "meeting-transcribe"
+version = "0.1.0"
+description = "Record, transcribe and speaker-label online meetings on your own Mac"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "obsws-python>=1.8.0",
+    "pyannote-audio>=4.0.7",
+]
+
+[tool.uv]
+package = false

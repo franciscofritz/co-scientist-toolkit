@@ -1,0 +1,12 @@
+type: tldr
+id: section-summary
+data:
+  title: "Build the site first, package it second."
+  body: |
+    Treating single-file HTML as a **delivery format** keeps content, styling, and
+    scripts separate during authoring. The packaging step collapses a working
+    site into one file at the end.
+  points:
+    - "Author in Markdown plus YAML."
+    - "Compile to JSON before the renderer touches it."
+    - "Inline only at packaging time."

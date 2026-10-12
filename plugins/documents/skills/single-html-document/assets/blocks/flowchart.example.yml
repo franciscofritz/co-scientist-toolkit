@@ -1,0 +1,24 @@
+type: flowchart
+packaging: interactive
+data:
+  title: "Token validation"
+  direction: top-down
+  nodes:
+    - { id: req,    label: "Incoming request",   lane: 0, order: 0, kind: terminal }
+    - { id: parse,  label: "Parse JWT",          lane: 0, order: 1 }
+    - { id: ok,     label: "Signature valid?",   lane: 0, order: 2, kind: decision }
+    - { id: cache,  label: "Cache validation",   lane: 0, order: 3, status: success }
+    - id: reject
+      label: "Reject 401"
+      lane: 1
+      order: 3
+      kind: terminal
+      status: danger
+      body: |
+        Logged with reason and request id; alerting fires only above threshold
+        of 30 rejections per minute per upstream IP.
+  edges:
+    - { from: req,   to: parse }
+    - { from: parse, to: ok }
+    - { from: ok,    to: cache,  label: "yes" }
+    - { from: ok,    to: reject, label: "no" }

@@ -1,0 +1,21 @@
+type: tabbed-code
+packaging: interactive
+data:
+  title: "Install commands"
+  default: 0
+  tabs:
+    - label: "npm"
+      language: bash
+      source: |
+        npm install gray-matter fast-glob
+        npm install -D vite-plugin-singlefile
+    - label: "pnpm"
+      language: bash
+      source: |
+        pnpm add gray-matter fast-glob
+        pnpm add -D vite-plugin-singlefile
+    - label: "bun"
+      language: bash
+      source: |
+        bun add gray-matter fast-glob
+        bun add -d vite-plugin-singlefile

@@ -1,0 +1,22 @@
+type: timeline
+data:
+  title: "Incident timeline · auth-svc 2026-04-12"
+  events:
+    - date: "08:42"
+      title: "First failed login spike detected"
+      body: "Grafana fired `auth-svc-error-rate-warn`. On-call paged."
+      status: warning
+      tag: "P2"
+    - date: "08:55"
+      title: "Root cause identified"
+      body: |
+        Token validator was pinned to a removed JWKS endpoint after the
+        rotation at 08:30.
+      status: danger
+      followUps:
+        - "Re-check JWKS rotation runbook"
+        - "Add canary on validator config drift"
+    - date: "09:14"
+      title: "Mitigated"
+      body: "Rolled forward to validator v2.18 with the new JWKS URL."
+      status: success

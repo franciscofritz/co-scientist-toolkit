@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Single HTML Design Inspection Gallery</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMxMTE4MjciLz48cGF0aCBkPSJNMTYgMThoMzJ2N0gxNnptMCAxM2gzMnY3SDE2em0wIDEzaDIwdjdIMTZ6IiBmaWxsPSIjZjhmYWZjIi8+PC9zdmc+">
+  <style>*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}h1,h2,h3,p{margin-top:0}button,input,select{font:inherit}.icon{width:1em;height:1em;display:inline-block;vertical-align:-.16em;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.eyebrow{text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.08em}.metric{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:14px;display:grid;gap:3px;position:relative}.metric-icon{position:absolute;right:12px;top:12px;color:var(--accent);font-size:22px;opacity:.9}.metric strong{font-size:30px;line-height:1}.metric span{color:var(--muted);font-weight:700}.metric em{font-style:normal;color:var(--accent);font-size:13px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}.panel h2{font-size:18px;display:flex;gap:8px;align-items:center}.bar{height:180px;display:inline-grid;align-items:end;gap:8px;margin-right:14px}.bar i{display:block;width:28px;background:var(--accent);border-radius:8px 8px 0 0}.bar span{font-size:12px;color:var(--muted)}.hbar{display:grid;grid-template-columns:96px 1fr 42px;gap:10px;align-items:center;margin:10px 0}.hbar div{height:10px;background:var(--soft);border-radius:99px;overflow:hidden}.hbar i{display:block;height:100%;background:var(--accent)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:9px;text-align:left}.fact{border:1px solid var(--line);background:var(--panel);padding:12px;border-radius:8px}.fact small{display:flex;gap:6px;align-items:center;text-transform:uppercase;font-size:11px;font-weight:800;color:var(--muted)}.fact strong{display:block;margin-top:3px}.small-card{border:1px solid var(--line);background:var(--panel);border-left:5px solid var(--accent);padding:16px;border-radius:8px}.small-card h3{display:flex;gap:8px;align-items:center}.small-card p{color:var(--muted)}@media(max-width:900px){.ana-grid,.cat-layout,.com-shell,.dos-content,.gal-shell{grid-template-columns:1fr!important}.ana-rail,.cat-filter,.com-shell aside{position:static!important;height:auto!important}.ana-metrics,.cat-stats,.tab-stats{grid-template-columns:1fr 1fr!important}}@media(max-width:560px){.ana-metrics,.cat-stats,.tab-stats,.tab-grid,.com-facts{grid-template-columns:1fr!important}}
+    body{background:#f4f0e8;color:#172233}
+    .index-layout{display:grid;grid-template-columns:286px 1fr;min-height:100vh}
+    .index-rail{position:sticky;top:0;height:100vh;background:#fffdf8;color:#172233;padding:24px;overflow:auto;border-right:1px solid #dfd4c3}
+    .index-rail h1{font-size:26px;line-height:1.05;margin:0 0 10px}
+    .index-rail p{color:#586575;font-size:14px;margin-bottom:18px}
+    .index-rail nav{display:grid;gap:7px}
+    .index-rail a{display:flex;align-items:center;gap:8px;color:#29384a;text-decoration:none;border:1px solid #dfd4c3;border-radius:8px;padding:9px 10px;background:#fff}
+    .index-rail a.active{background:#eef6f4;border-color:#0f5f68;color:#0f5f68;font-weight:900}
+    .index-main{min-width:0}
+    .index-hero{padding:38px max(24px,calc((100vw - 1220px)/2));background:#fffdf8;border-bottom:1px solid #dfd4c3}
+    .index-hero h1{font-size:52px;line-height:1.02;margin:0 0 14px;max-width:850px}
+    .index-hero p{font-size:18px;color:#586575;max-width:82ch}
+    .index-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+    .index-toolbar button{border:1px solid #cfc5b5;background:#fff;border-radius:8px;padding:8px 11px;font-weight:800;color:#29384a}
+    .index-toolbar button.active{background:#0f5f68;color:#fff;border-color:#0f5f68}
+    .comparison{padding:28px max(24px,calc((100vw - 1220px)/2));border-bottom:1px solid #dfd4c3}
+    .comparison h2,.gallery-list h2{font-size:28px;margin-bottom:12px}
+    .comparison table{background:#fffdf8;border:1px solid #dfd4c3;border-radius:8px;overflow:hidden}
+    .comparison td,.comparison th{vertical-align:top}
+    .comparison a{color:#0f5f68;font-weight:900;text-decoration:none}
+    .gallery-list{padding:28px max(24px,calc((100vw - 1220px)/2));display:grid;gap:18px}
+    .design-card{background:#fffdf8;border:1px solid #dfd4c3;border-radius:8px;display:grid;grid-template-columns:minmax(300px,42%) 1fr;overflow:hidden;scroll-margin-top:18px}
+    .preview-frame{min-height:320px;padding:18px;border-right:1px solid #dfd4c3;background:#f8f4ec;display:grid}
+    .design-copy{padding:22px;display:grid;gap:12px}
+    .design-copy h2{font-size:30px;display:flex;gap:9px;align-items:center;margin:0}
+    .sample-name{font-weight:900;color:#0f5f68;margin:0}
+    .design-copy dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+    .design-copy dt{text-transform:uppercase;font-size:11px;font-weight:900;color:#687386}
+    .design-copy dd{margin:3px 0 0;color:#344154;line-height:1.45}
+    .component-list{display:flex;flex-wrap:wrap;gap:7px}
+    .component-list span{border:1px solid #dfd4c3;background:#fff;border-radius:999px;padding:5px 8px;font-size:12px;font-weight:800;color:#566173}
+    .design-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .design-actions a,.design-actions span{display:inline-flex;gap:7px;align-items:center;text-decoration:none;color:#0f5f68;font-weight:900;border:1px solid #d7cbb9;border-radius:8px;padding:8px 10px;background:#fff}
+    .mini{width:100%;height:100%;min-height:280px;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.12);background:#fff;box-shadow:0 8px 20px rgba(17,24,39,.08)}
+    .mini-analytics{display:grid;grid-template-columns:22% 1fr;background:#f6efe3}.mini-analytics aside{background:#efe4d2}.mini-analytics main{padding:16px}.mini-bars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.mini-bars i{display:block;height:50px;background:#176d6d;border-radius:6px}.mini-panels{display:grid;grid-template-columns:1.3fr 1fr;gap:9px;margin-top:12px}.mini-panels div{height:68px;background:#fff;border:1px solid #eadfce;border-radius:6px}
+    .mini-catalogue{background:#f3f2f1}.mini-catalogue header{height:52px;background:#002147}.mini-catalogue div{display:grid;grid-template-columns:32% 1fr;gap:10px;padding:12px}.mini-catalogue aside,.mini-catalogue article{background:#fff;border:1px solid #d4d6d8}.mini-catalogue article{height:58px;border-left:5px solid #002147;margin-bottom:8px}
+    .mini-committee{background:#f5f5f7}.mini-committee header{height:96px;background:#fff;border-bottom:1px solid #e5e5e7}.mini-committee div{display:grid;grid-template-columns:25% 1fr;gap:12px;padding:12px}.mini-committee aside,.mini-committee section{background:#fff;border:1px solid #e5e5e7;border-radius:6px}.mini-committee section{height:72px;margin-bottom:8px}
+    .mini-dossier{background:#f3f2f1}.mini-dossier header{height:105px;background:#002147}.mini-dossier div{display:grid;grid-template-columns:1fr 28%;gap:12px;padding:12px}.mini-dossier article,.mini-dossier aside{background:#fff;border:1px solid #d4d6d8}.mini-dossier article{height:145px}
+    .mini-tabs{background:#fff}.mini-tabs header{height:112px;background:#002147}.mini-tabs nav{height:34px;background:#062d52;border-bottom:4px solid #c7a23c}.mini-tabs section{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}.mini-tabs section div{height:86px;background:#f8f8f8;border:1px solid #d4d6d8;border-left:5px solid #002147;border-radius:6px}
+    .mini-gallery{display:grid;grid-template-columns:28% 1fr;background:#f7f3eb}.mini-gallery aside{background:#fffdf8;border-right:1px solid #dfd4c3}.mini-gallery section{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:12px}.mini-gallery figure{margin:0;background:#f8f5ef;border:1px solid #dfd4c3;border-radius:6px;height:92px}
+    .mini-workshop{display:grid;grid-template-columns:26% 1fr;background:#f6f1e8}.mini-workshop aside{background:#071b33}.mini-workshop main{padding:14px}.mini-workshop figure{height:92px;background:#fff;border:1px solid #e4d9c7;border-radius:6px;margin:0 0 12px}.mini-workshop article{height:44px;background:#fffdf8;border:1px solid #e4d9c7;border-radius:6px;margin-bottom:8px}
+    .icon{width:18px;height:18px;display:inline-block;vertical-align:-3px}
+    @media(max-width:1000px){.index-layout,.design-card{grid-template-columns:1fr}.index-rail{position:static;height:auto}.preview-frame{border-right:0;border-bottom:1px solid #dfd4c3}.design-copy dl{grid-template-columns:1fr}}
+    @media(max-width:620px){.index-hero h1{font-size:34px}.comparison{overflow-x:auto}.preview-frame{min-height:230px}.mini{min-height:220px}}
+  </style>
+</head>
+<body>
+  <div class="index-layout">
+    <aside class="index-rail"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><rect width="16" height="16" x="6" y="2" rx="2"/><circle cx="12" cy="8" r="2"/><path d="m22 16-3-3a2 2 0 0 0-2.8 0L10 19"/></svg> Design Inspection Gallery</h1><p>All reusable single-HTML design options in one navigable file.</p><nav><a class="active" href="#overview"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg> Overview</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Comparison</a><a class="active" href="#institutional-analytics"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Institutional Analytics</a><a class="" href="#record-catalogue"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Record Catalogue</a><a class="" href="#committee-briefing"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg> Committee Briefing</a><a class="" href="#protocol-dossier"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.5a1.3 1.3 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Protocol Dossier</a><a class="" href="#tabbed-workshop"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg> Tabbed Workshop</a><a class="" href="#inspection-gallery"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><rect width="16" height="16" x="6" y="2" rx="2"/><circle cx="12" cy="8" r="2"/><path d="m22 16-3-3a2 2 0 0 0-2.8 0L10 19"/></svg> Inspection Gallery</a><a class="" href="#workshop-report"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/><path d="M16 14v2l1 1"/></svg> Workshop Report</a></nav></aside>
+    <main class="index-main">
+      <section id="overview" class="index-hero">
+        <p class="eyebrow">single-html-document / design options</p>
+        <h1>Choose the report shape before building the page</h1>
+        <p>This index is the inspection gallery for all possible sample designs. It is a packaging-safe single HTML page with internal navigation, comparison data, thumbnail previews, and links to the full functional samples.</p>
+        <div class="index-toolbar"><button class="active" data-index-filter="all">All</button><button class="" data-index-filter="analytics">Analytics</button><button class="" data-index-filter="catalogue">Catalogue</button><button class="" data-index-filter="briefing">Briefing</button><button class="" data-index-filter="workshop">Workshop</button><button class="" data-index-filter="visual">Visual</button></div>
+      </section>
+      <section id="comparison" class="comparison">
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare Options</h2>
+        <table><thead><tr><th>Design</th><th>Website type</th><th>Best fit</th><th>Sample size</th></tr></thead><tbody><tr data-index-card data-kind="analytics"><td><a href="#institutional-analytics">Institutional Analytics</a></td><td>operational analytics dashboard</td><td>CSV or admin exports, product-like operational reporting, KPI-heavy dashboards.</td><td>13.0 KB</td></tr><tr data-index-card data-kind="catalogue"><td><a href="#record-catalogue">Record Catalogue</a></td><td>searchable record catalogue</td><td>Atomic Markdown records, protocols, tool inventories, people directories, compliance registers.</td><td>13.7 KB</td></tr><tr data-index-card data-kind="briefing"><td><a href="#committee-briefing">Committee Briefing</a></td><td>committee briefing microsite</td><td>Meeting packs, committee papers, workshop notes, decision briefings with a strong opening overview.</td><td>9.6 KB</td></tr><tr data-index-card data-kind="briefing"><td><a href="#protocol-dossier">Protocol Dossier</a></td><td>single protocol dossier</td><td>A single important protocol, policy proposal, research plan, or risk review that needs authority.</td><td>9.2 KB</td></tr><tr data-index-card data-kind="workshop"><td><a href="#tabbed-workshop">Tabbed Workshop</a></td><td>facilitated workshop website</td><td>Training packs, facilitation guides, strategy workshops, slide-like reports opened in a browser.</td><td>12.3 KB</td></tr><tr data-index-card data-kind="visual"><td><a href="#inspection-gallery">Inspection Gallery</a></td><td>visual inspection gallery</td><td>Image/model comparisons, screenshots, prompt galleries, portfolio-style evidence reviews.</td><td>21.7 KB</td></tr><tr data-index-card data-kind="workshop"><td><a href="#workshop-report">Workshop Report</a></td><td>detailed workshop/event report</td><td>Event reports, training-session records, speaker/session pages, slide-rich meeting notes, and follow-up packs.</td><td>24.3 KB</td></tr></tbody></table>
+      </section>
+      <section class="gallery-list"><h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><rect width="16" height="16" x="6" y="2" rx="2"/><circle cx="12" cy="8" r="2"/><path d="m22 16-3-3a2 2 0 0 0-2.8 0L10 19"/></svg> Design Previews</h2><article id="institutional-analytics" class="design-card analytics" data-index-card data-kind="analytics">
+      <div class="preview-frame analytics" aria-hidden="true"><div class="mini mini-analytics"><aside></aside><main><div class="mini-bars"><i></i><i></i><i></i><i></i></div><div class="mini-panels"><div></div><div></div><div></div><div></div></div></main></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">operational analytics dashboard</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Institutional Analytics</h2>
+        <p class="sample-name">Institution AI Usage Analytics</p>
+        <dl>
+          <div><dt>Best for</dt><dd>CSV or admin exports, product-like operational reporting, KPI-heavy dashboards.</dd></div>
+          <div><dt>Avoid for</dt><dd>Long narrative reports where charts are only supporting evidence.</dd></div>
+          <div><dt>Layout</dt><dd>Left rail, topbar metadata chips, KPI cards, dashboard grids, ranked table, footer strip.</dd></div>
+          <div><dt>Palette</dt><dd>Warm sand, deep teal, slate, muted gold, restrained red.</dd></div>
+        </dl>
+        <div class="component-list"><span>navigation rail</span><span>metadata chips</span><span>KPI cards</span><span>chart panels</span><span>ranked table</span><span>export cards</span></div>
+        <div class="design-actions"><a href="#institutional-analytics"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> institutional-analytics.single.html / 13.0 KB</span></div>
+      </div>
+    </article><article id="record-catalogue" class="design-card catalogue" data-index-card data-kind="catalogue">
+      <div class="preview-frame catalogue" aria-hidden="true"><div class="mini mini-catalogue"><header></header><div><aside></aside><main><article></article><article></article><article></article></main></div></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">searchable record catalogue</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Record Catalogue</h2>
+        <p class="sample-name">AI Stress Test Protocol Library</p>
+        <dl>
+          <div><dt>Best for</dt><dd>Atomic Markdown records, protocols, tool inventories, people directories, compliance registers.</dd></div>
+          <div><dt>Avoid for</dt><dd>Reports that need a polished first-read narrative arc.</dd></div>
+          <div><dt>Layout</dt><dd>Header bar, sticky filter sidebar, summary stats, stacked record cards with metadata grids.</dd></div>
+          <div><dt>Palette</dt><dd>Institutional blue, white, governance-style greys, gold focus state, semantic status colours.</dd></div>
+        </dl>
+        <div class="component-list"><span>search</span><span>select filters</span><span>record cards</span><span>status pills</span><span>metadata grid</span><span>print-safe cards</span></div>
+        <div class="design-actions"><a href="#record-catalogue"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> record-catalogue.single.html / 13.7 KB</span></div>
+      </div>
+    </article><article id="committee-briefing" class="design-card committee" data-index-card data-kind="briefing">
+      <div class="preview-frame committee" aria-hidden="true"><div class="mini mini-committee"><header></header><div><aside></aside><main><section></section><section></section></main></div></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">committee briefing microsite</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg> Committee Briefing</h2>
+        <p class="sample-name">AI Governance Committee Pack</p>
+        <dl>
+          <div><dt>Best for</dt><dd>Meeting packs, committee papers, workshop notes, decision briefings with a strong opening overview.</dd></div>
+          <div><dt>Avoid for</dt><dd>Dense data exploration where the reader needs tables first.</dd></div>
+          <div><dt>Layout</dt><dd>Landing overview, fact cards, section cards, sticky scroll sidebar, long-form article sections.</dd></div>
+          <div><dt>Palette</dt><dd>Light neutral, black ink, blue active state, quiet grey surfaces.</dd></div>
+        </dl>
+        <div class="component-list"><span>landing panel</span><span>attendance/fact cards</span><span>section overview grid</span><span>scroll navigation</span><span>highlight boxes</span></div>
+        <div class="design-actions"><a href="#committee-briefing"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> committee-briefing.single.html / 9.6 KB</span></div>
+      </div>
+    </article><article id="protocol-dossier" class="design-card dossier" data-index-card data-kind="briefing">
+      <div class="preview-frame dossier" aria-hidden="true"><div class="mini mini-dossier"><header></header><div><article></article><aside></aside></div></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">single protocol dossier</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.5a1.3 1.3 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Protocol Dossier</h2>
+        <p class="sample-name">Interview Integrity Protocol</p>
+        <dl>
+          <div><dt>Best for</dt><dd>A single important protocol, policy proposal, research plan, or risk review that needs authority.</dd></div>
+          <div><dt>Avoid for</dt><dd>Collections of many short records.</dd></div>
+          <div><dt>Layout</dt><dd>Full-width institutional hero, right-side metadata cards, article body, sticky fact rail, reading/meeting toggle.</dd></div>
+          <div><dt>Palette</dt><dd>Institutional blue, gold, white, muted grey, high contrast.</dd></div>
+        </dl>
+        <div class="component-list"><span>hero metadata</span><span>fact rail</span><span>table of contents</span><span>prose body</span><span>meeting-mode sections</span></div>
+        <div class="design-actions"><a href="#protocol-dossier"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> protocol-dossier.single.html / 9.2 KB</span></div>
+      </div>
+    </article><article id="tabbed-workshop" class="design-card tabs" data-index-card data-kind="workshop">
+      <div class="preview-frame tabs" aria-hidden="true"><div class="mini mini-tabs"><header></header><nav></nav><section><div></div><div></div><div></div></section></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">facilitated workshop website</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg> Tabbed Workshop</h2>
+        <p class="sample-name">AI Decision Workshop</p>
+        <dl>
+          <div><dt>Best for</dt><dd>Training packs, facilitation guides, strategy workshops, slide-like reports opened in a browser.</dd></div>
+          <div><dt>Avoid for</dt><dd>Documents that must print as one uninterrupted paper.</dd></div>
+          <div><dt>Layout</dt><dd>Compact hero, stat strip, tab buttons, card grids, action blocks.</dd></div>
+          <div><dt>Palette</dt><dd>Deep blue header, gold tab rule, white content, pale grey cards.</dd></div>
+        </dl>
+        <div class="component-list"><span>tabs</span><span>stat strip</span><span>card grids</span><span>action lists</span><span>print-all fallback</span></div>
+        <div class="design-actions"><a href="#tabbed-workshop"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> tabbed-workshop.single.html / 12.3 KB</span></div>
+      </div>
+    </article><article id="inspection-gallery" class="design-card gallery" data-index-card data-kind="visual">
+      <div class="preview-frame gallery" aria-hidden="true"><div class="mini mini-gallery"><aside></aside><section><figure></figure><figure></figure><figure></figure><figure></figure></section></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">visual inspection gallery</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><rect width="16" height="16" x="6" y="2" rx="2"/><circle cx="12" cy="8" r="2"/><path d="m22 16-3-3a2 2 0 0 0-2.8 0L10 19"/></svg> Inspection Gallery</h2>
+        <p class="sample-name">Image Capability Review Gallery</p>
+        <dl>
+          <div><dt>Best for</dt><dd>Image/model comparisons, screenshots, prompt galleries, portfolio-style evidence reviews.</dd></div>
+          <div><dt>Avoid for</dt><dd>Text-only reports where large visual surfaces waste space.</dd></div>
+          <div><dt>Layout</dt><dd>Dark utility rail, filter controls, large figure grid, figure metadata, source/provenance notes.</dd></div>
+          <div><dt>Palette</dt><dd>Charcoal shell, paper cards, red or teal accent, neutral metadata.</dd></div>
+        </dl>
+        <div class="component-list"><span>figure grid</span><span>category filters</span><span>metadata badges</span><span>source drawers</span><span>rubric download</span></div>
+        <div class="design-actions"><a href="#inspection-gallery"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> inspection-gallery.single.html / 21.7 KB</span></div>
+      </div>
+    </article><article id="workshop-report" class="design-card workshop" data-index-card data-kind="workshop">
+      <div class="preview-frame workshop" aria-hidden="true"><div class="mini mini-workshop"><aside></aside><main><figure></figure><article></article><article></article><article></article></main></div></div>
+      <div class="design-copy">
+        <p class="eyebrow">detailed workshop/event report</p>
+        <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/><path d="M16 14v2l1 1"/></svg> Workshop Report</h2>
+        <p class="sample-name">Research Practice Workshop</p>
+        <dl>
+          <div><dt>Best for</dt><dd>Event reports, training-session records, speaker/session pages, slide-rich meeting notes, and follow-up packs.</dd></div>
+          <div><dt>Avoid for</dt><dd>Short memos where programme, media, and provenance would add noise.</dd></div>
+          <div><dt>Layout</dt><dd>Image-led hero, sticky navigation, programme timeline, session detail cards, slide gallery, speakers, materials, provenance.</dd></div>
+          <div><dt>Palette</dt><dd>Institutional navy, warm paper, gold highlights, clinical blue accents, photo-led content blocks.</dd></div>
+        </dl>
+        <div class="component-list"><span>hero image</span><span>sticky section nav</span><span>programme timeline</span><span>session cards</span><span>slide image gallery</span><span>speaker cards</span><span>materials/provenance</span></div>
+        <div class="design-actions"><a href="#workshop-report"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Inspect here</a><a href="#comparison"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4h6z"/><path d="M9 3h10a2 2 0 0 1 2 2v4H9z"/><path d="M9 9h12v10a2 2 0 0 1-2 2H9z"/><path d="M9 9H3v10a2 2 0 0 0 2 2h4z"/></svg> Compare</a><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2v6h6"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg> workshop-report.single.html / 24.3 KB</span></div>
+      </div>
+    </article></section>
+    </main>
+  </div>
+  <script>document.addEventListener("click",(event)=>{const filter=event.target.closest("[data-index-filter]");if(!filter)return;const kind=filter.dataset.indexFilter;document.querySelectorAll("[data-index-filter]").forEach(button=>button.classList.toggle("active",button===filter));document.querySelectorAll("[data-index-card]").forEach(card=>{card.hidden=kind!=="all"&&card.dataset.kind!==kind;});});</script>
+</body>
+</html>

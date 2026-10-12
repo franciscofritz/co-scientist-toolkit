@@ -1,0 +1,16 @@
+[project]
+name = "academic-pdf-to-mkd"
+version = "0.2.0"
+description = "Extract academic PDFs into structured Markdown with figures, tables, and page thumbnails"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "docling",
+    "pymupdf4llm",
+    "mineru[all]",
+    "pillow",
+    "pypdf",
+    "reportlab",
+]
+
+[tool.uv]
+package = false

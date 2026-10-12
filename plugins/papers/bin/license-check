@@ -1,0 +1,4 @@
+#!/bin/sh
+# license-check on the Bash tool's PATH while the papers plugin is enabled.
+here="$(cd "$(dirname "$0")" && pwd)"
+exec python3 "$here/../tools/license-check/license_check.py" "$@"

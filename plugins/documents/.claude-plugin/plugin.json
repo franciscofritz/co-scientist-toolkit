@@ -1,0 +1,19 @@
+{
+  "name": "documents",
+  "displayName": "Documents",
+  "version": "0.1.0",
+  "description": "Typeset PDFs and slide decks from Markdown, self-contained HTML documents, and a course or docs site bound into one printable PDF",
+  "author": {
+    "name": "Jonathan Shock",
+    "url": "https://github.com/shocklab"
+  },
+  "repository": "https://github.com/shocklab/co-scientist-toolkit",
+  "license": "MIT",
+  "keywords": [
+    "documents",
+    "pdf",
+    "slides",
+    "html",
+    "pandoc"
+  ]
+}

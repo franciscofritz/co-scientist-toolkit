@@ -1,0 +1,41 @@
+{
+  "name": "co-scientist-toolkit",
+  "description": "Claude Code skills and hooks for research: reading papers properly, respecting their licences, working with rigour, recording and transcribing meetings, and making audio and documents, with everything possible kept on your own computer",
+  "owner": {
+    "name": "Shocklab, University of Cape Town",
+    "url": "https://github.com/shocklab"
+  },
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "papers",
+      "source": "./plugins/papers",
+      "description": "Fetch arXiv source, turn PDFs into Markdown locally, verify references, review papers and import them into Zotero, with a hook that keeps the full text of subscription papers out of the conversation",
+      "version": "0.1.0"
+    },
+    {
+      "name": "meetings",
+      "source": "./plugins/meetings",
+      "description": "Skills for recording and transcribing meetings on your own Mac with the meeting tool in this repository (OBS, whisper.cpp, pyannote); nothing is uploaded",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "Working discipline for research: decide whether an idea is worth pursuing and pre-register predictions, check whether an iterative loop is converging, run hard problems through five gates, put decisions on a page to tick, and use Mathematica for exact and high-precision work",
+      "version": "0.1.0"
+    },
+    {
+      "name": "audio",
+      "source": "./plugins/audio",
+      "description": "Speech from text and papers read aloud on your own Mac with Kokoro-82M, through the pdf2audio tools; no text or audio leaves the machine",
+      "version": "0.1.0"
+    },
+    {
+      "name": "documents",
+      "source": "./plugins/documents",
+      "description": "Typeset PDFs and slide decks from Markdown, self-contained HTML documents, and a course or docs site bound into one printable PDF",
+      "version": "0.1.0"
+    }
+  ]
+}

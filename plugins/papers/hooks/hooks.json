@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Read", "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh pre-read" } ] },
+      { "matcher": "Grep", "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh pre-grep" } ] },
+      { "matcher": "Bash", "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh pre-bash" } ] },
+      { "matcher": "WebFetch|mcp__Claude_Browser__navigate|mcp__claude-in-chrome__navigate|mcp__Claude_Browser__preview_start",
+        "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh pre-url" } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Read", "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh post-read" } ] },
+      { "matcher": "Bash", "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh post-bash" } ] },
+      { "matcher": "WebFetch|mcp__Claude_Browser__navigate|mcp__claude-in-chrome__navigate|mcp__Claude_Browser__preview_start",
+        "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh post-url" } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/tools/license-check/hook.sh prompt" } ] }
+    ]
+  }
+}

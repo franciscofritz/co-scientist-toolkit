@@ -1,0 +1,17 @@
+#!/bin/sh
+# Local meeting recording and transcription. Runs meeting.py with the virtual environment
+# that sits beside this script, so it works from any directory and through a symlink
+# (for example one in ~/.local/bin). See README.md in this folder.
+src="$0"
+while [ -h "$src" ]; do
+  dir="$(cd -P "$(dirname "$src")" && pwd)"
+  src="$(readlink "$src")"
+  case "$src" in /*) ;; *) src="$dir/$src" ;; esac
+done
+HERE="$(cd -P "$(dirname "$src")" && pwd)"
+if [ ! -x "$HERE/.venv/bin/python" ]; then
+  echo "meeting: no virtual environment in $HERE" >&2
+  echo "Run 'uv sync' in that folder first (see README.md)." >&2
+  exit 1
+fi
+exec "$HERE/.venv/bin/python" "$HERE/meeting.py" "$@"

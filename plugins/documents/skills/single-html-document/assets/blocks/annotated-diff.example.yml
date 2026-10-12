@@ -1,0 +1,20 @@
+type: annotated-diff
+packaging: interactive
+data:
+  title: "Token validator change"
+  path: "src/auth/validator.ts"
+  language: typescript
+  lines:
+    - { kind: context, oldNumber: 12, newNumber: 12, content: "export async function validate(token: string) {" }
+    - { kind: remove,  oldNumber: 13,                content: "  const jwks = await fetch(JWKS_URL).then((r) => r.json());" }
+    - { kind: add,                    newNumber: 13, content: "  const jwks = await getJwks();  // cached, rotation-aware" }
+    - { kind: context, oldNumber: 14, newNumber: 14, content: "  return verify(token, jwks);" }
+    - { kind: context, oldNumber: 15, newNumber: 15, content: "}" }
+  notes:
+    - onLines: [2, 3]
+      severity: P1
+      body: |
+        The previous version refetched the JWKS on every request. The new helper
+        caches and respects rotation; see `getJwks` in `src/auth/jwks.ts`.
+  jumpLinks:
+    - { label: "Top of fix", atLine: 2 }

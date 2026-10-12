@@ -1,0 +1,13 @@
+type: slider
+packaging: interactive
+data:
+  title: "Base64 inflation"
+  description: |
+    Base64 encoding adds roughly 33% overhead. Slide the raw size to see the
+    effect on the packaged HTML.
+  parameters:
+    - { name: rawMb,   label: "Raw asset size", min: 1, max: 50, step: 1, default: 10, unit: "MB" }
+    - { name: extraMb, label: "Other content",  min: 0, max: 20, step: 1, default: 2,  unit: "MB" }
+  outputs:
+    - { label: "Encoded size",   compute: "rawMb * 1.33 + extraMb", format: number, decimals: 1, unit: "MB" }
+    - { label: "Inflation cost", compute: "rawMb * 0.33",            format: number, decimals: 1, unit: "MB" }

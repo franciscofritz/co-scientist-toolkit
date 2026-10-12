@@ -1,0 +1,8 @@
+type: callout
+data:
+  tone: warning
+  title: "Don't fight the release-age gate"
+  body: |
+    When `npm install foo@latest` resolves to an older version than expected,
+    that's the **seven-day buffer working** — investigate the package, don't
+    override the gate.

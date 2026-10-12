@@ -1,0 +1,12 @@
+{
+  "domain": "paper-review",
+  "primaryRule": "moderate",
+  "targetGlob": [],
+  "targetNote": "No fixed location. Use the review file or files the user names. If none is given, ask the user which review file(s) to check.",
+  "sourcesGlob": ["{paper_id}-fulltext.md", "figures/*.md", "tables/*.md", "{arxiv_id}/source/**/*.tex"],
+  "sourcesNote": "Output folder of papers:academic-pdf-to-mkd for this paper ({paper_id}-fulltext.md, figures/{paper_id}-figure-NN.md, tables/{paper_id}-table-NN.md; the fulltext frontmatter names the engine, and with the fast and math engines tables stay inline in the fulltext). If papers:arxiv-fetcher fetched the paper, also the .tex files in its source/ folder and its metadata.json.",
+  "outputDir": "same folder as the review file",
+  "outputNames": { "findings": "{review-basename}-factcheck-{ts}.md", "fixplan": "{review-basename}-fixplan-{ts}.md" },
+  "guidance": "The deliverable is a review of one paper; the sources are that paper's own extracted fulltext, figures and tables (and its LaTeX source where available). A claim is verified when the review accurately reflects what the paper says or shows. Flag: findings the paper does not actually make, overstated effect sizes, mis-described figures or tables, and any 'the paper proves X' where the paper only suggests X.",
+  "note": "Run per paper and per review file. Claims about work the paper cites, rather than about the paper, are unsourced unless the user also names that work as a source."
+}

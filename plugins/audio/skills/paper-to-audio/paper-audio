@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+# paper-audio: narrate a PDF paper to MP3 with the local pdf2audio pipeline.
+# Nothing from the paper leaves this machine: Kokoro reads the text, a local Ollama model
+# explains equations.
+set -o pipefail
+
+# pdf2audio is looked up on PATH; set PDF2AUDIO to its full path if it lives in a virtual
+# environment that is not active.
+PDF2AUDIO="${PDF2AUDIO:-pdf2audio}"
+LOG_DIR="$HOME/Library/Logs/paper-audio"
+# Homebrew's ffmpeg (MP3 export), espeak-ng and ollama live here; a launcher that gives this
+# script a bare PATH would not find them.
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+# pdf2audio sends images of the equation pages to Ollama on localhost; without this, a
+# configured HTTP_PROXY would receive those requests.
+export NO_PROXY="localhost,127.0.0.1${NO_PROXY:+,$NO_PROXY}" no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}"
+
+EXPLAIN=1
+CHECK=1
+APPENDICES=1
+NOTIFY=0
+VOICE=""
+
+usage() {
+  cat <<'USAGE'
+Usage: paper-audio [options] <paper.pdf> [more.pdf ...]
+
+  --no-appendices   stop at the first appendix
+  --no-explain      announce equations by number instead of explaining them
+                    (much faster: no local model needed)
+  --no-check        skip the second pass in which the model checks each explanation
+                    against the equation and corrects it (on by default; it about
+                    doubles the equation time)
+  --voice ID        Kokoro voice (default af_heart; see pdf2audio --list-voices)
+  --notify          post a macOS notification when each paper is done
+  -h, --help        show this
+
+Writes <paper>.mp3 and <paper>.txt (the narrated text) beside each PDF, and a log
+in ~/Library/Logs/paper-audio/. It needs the pdf2audio command, from
+https://github.com/jonstraveladventures/pdf2audio (set PDF2AUDIO to its full path if it
+is not on PATH). Equation explanations need Ollama running with
+qwen3.5:35b-a3b; allow from about one to several minutes per page that has
+equations, depending on how long the model thinks.
+After each run it prints checks computed from the output alone, without anyone
+reading the paper.
+USAGE
+}
+
+notify() {
+  [ "$NOTIFY" = 1 ] || return 0
+  # The text goes to AppleScript as arguments, never into its source, so a file name cannot
+  # end the string and run commands.
+  /usr/bin/osascript \
+    -e 'on run argv' \
+    -e 'display notification (item 2 of argv) with title "Paper audio" subtitle (item 1 of argv)' \
+    -e 'end run' -- "$1" "$2" >/dev/null 2>&1 || true
+}
+
+files=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-appendices) APPENDICES=0 ;;
+    --no-explain) EXPLAIN=0 ;;
+    --check) CHECK=1 ;;
+    --no-check) CHECK=0 ;;
+    --voice)
+      case "${2-}" in ''|-*) echo "paper-audio: --voice needs a voice ID" >&2; exit 2 ;; esac
+      VOICE="$2"; shift ;;
+    --notify) NOTIFY=1 ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; files+=("$@"); break ;;
+    -*) echo "paper-audio: unknown option $1" >&2; usage >&2; exit 2 ;;
+    *) files+=("$1") ;;
+  esac
+  shift
+done
+[ ${#files[@]} -gt 0 ] || { usage >&2; exit 2; }
+command -v "$PDF2AUDIO" >/dev/null 2>&1 || { echo "paper-audio: pdf2audio not found: install it from https://github.com/jonstraveladventures/pdf2audio, or set PDF2AUDIO to its full path" >&2; exit 1; }
+# A mistyped voice would otherwise fail only after the whole equation phase.
+if [ -n "$VOICE" ] && ! "$PDF2AUDIO" --list-voices 2>/dev/null | awk '{print $1}' | grep -qxF -- "$VOICE"; then
+  echo "paper-audio: unknown voice '$VOICE'; see $PDF2AUDIO --list-voices" >&2; exit 2
+fi
+mkdir -p "$LOG_DIR"
+# Touched before each run; an output not newer than it was not written by that run.
+marker="$(mktemp -t paper-audio)" || exit 1
+trap 'rm -f "$marker"' EXIT
+
+status=0
+for pdf in "${files[@]}"; do
+  name="$(basename "$pdf")"
+  if [ ! -f "$pdf" ] || [ "$(printf '%s' "${pdf##*.}" | tr 'A-Z' 'a-z')" != "pdf" ]; then
+    echo "paper-audio: not a PDF file: $pdf" >&2; notify "$name" "Not a PDF file"; status=1; continue
+  fi
+  stem="${pdf%.*}"; mp3="$stem.mp3"; txt="$stem.txt"
+  # One log per PDF path, so papers with the same name in different folders keep separate logs.
+  abs="$(cd "$(dirname "$pdf")" && pwd)/$name"
+  log="$LOG_DIR/${name%.*}.$(printf '%s' "$abs" | cksum | cut -d' ' -f1).log"
+
+  args=("$pdf" --output-text -o "$mp3")
+  [ "$EXPLAIN" = 1 ] && args+=(--explain-equations)
+  [ "$EXPLAIN" = 1 ] && [ "$CHECK" = 1 ] && args+=(--check-equations)
+  [ "$APPENDICES" = 0 ] && args+=(--no-appendices)
+  [ -n "$VOICE" ] && args+=(--voice "$VOICE")
+
+  echo "== $name"
+  start=$(date +%s); : > "$marker"
+  if ! "$PDF2AUDIO" "${args[@]}" >"$log" 2>&1; then
+    reason="$(grep -m1 'Error:' "$log" | sed 's/^ *//')"
+    echo "   FAILED: ${reason:-see $log}"; notify "$name" "Failed: ${reason:-see the log}"; status=1; continue
+  fi
+  # pdf2audio can exit 0 without writing a file, and a file left by an earlier run must not be
+  # reported as this run's.
+  for out in "$txt" "$mp3"; do
+    if [ ! -s "$out" ] || [ -z "$(find "$out" -newer "$marker" 2>/dev/null)" ]; then
+      echo "   FAILED: pdf2audio finished but wrote no new $(basename "$out"); see $log"
+      notify "$name" "Failed: no new $(basename "$out")"; status=1; continue 2
+    fi
+  done
+  mins=$(( ($(date +%s) - start + 59) / 60 ))
+
+  # Checks from the output alone.
+  words=$(wc -w < "$txt" | tr -d ' ')
+  secs=$(/usr/bin/afinfo "$mp3" 2>/dev/null | awk '/estimated duration/ {print int($3)}')
+  audio_len=$(printf '%d:%02d' $(( ${secs:-0} / 60 )) $(( ${secs:-0} % 60 )))
+  wpm=0; [ "${secs:-0}" -gt 0 ] && wpm=$(( words * 60 / secs ))   # bash divides in both branches of ?:
+  explained="$(grep -o 'Explained [0-9]* of [0-9]* equations' "$log" | tail -1)"
+  checkline="$(grep -o 'The check corrected [0-9]* explanations; [0-9]* pages could not be checked' "$log" | tail -1)"
+  unchecked=$(printf '%s' "$checkline" | awk '{print $6}')
+  # Every display equation left in the text is counted in the log's "Explained N of M";
+  # one that is not explained is announced by number ("Equations 3.6, 3.7 and 3.8."),
+  # or, if it has no number, left out of the narration.
+  n_explained=$(printf '%s' "$explained" | awk '{print $2}')
+  n_equations=$(printf '%s' "$explained" | awk '{print $4}')
+  missed=$(( ${n_equations:-0} - ${n_explained:-0} ))
+  by_number=$(grep -cE '^Equations? [A-Z0-9][^ ,]*(, [A-Z0-9][^ ,]*)*( and [A-Z0-9][^ ,]*)?\.$' "$txt")
+  left_out=$(( missed > by_number ? missed - by_number : 0 ))
+  leftovers=$(( $(grep -c '\[\[EQ' "$txt") + $(grep -c '</\?sup>' "$txt") ))
+  refs=$(grep -ciE '\bdoi: ?10\.|\bISSN\b' "$txt")
+  tables=$(grep -c 'Table omitted\.' "$txt")
+
+  echo "   audio: $mp3 ($audio_len, $words words, ${wpm} words/min)"
+  echo "   text:  $txt"
+  [ "$EXPLAIN" = 1 ] && echo "   equations: ${explained:-none found}; announced by number only: $by_number"
+  [ -n "$checkline" ] && echo "   check: $checkline"
+  echo "   tables omitted: $tables; run time: ${mins} min; log: $log"
+  flags=()
+  [ "$leftovers" -gt 0 ] && flags+=("$leftovers leftover markers or tags in the text")
+  [ "$refs" -gt 0 ] && flags+=("$refs reference-like lines (DOI/ISSN) still in the text")
+  if [ "${secs:-0}" -eq 0 ]; then flags+=("the MP3's length could not be read")
+  elif [ "$wpm" -lt 100 ] || [ "$wpm" -gt 220 ]; then flags+=("speaking rate $wpm words/min is outside the usual 100-220"); fi
+  [ "$EXPLAIN" = 1 ] && [ "$missed" -gt 0 ] && flags+=("$missed of $n_equations equations not explained: $by_number announced by number, $left_out without a number and left out of the narration")
+  [ "${unchecked:-0}" -gt 0 ] && flags+=("$unchecked pages of equations were not checked (the model ran out of room)")
+  if [ ${#flags[@]} -gt 0 ]; then
+    for f in "${flags[@]}"; do echo "   CHECK: $f"; done
+  else
+    echo "   checks: nothing unusual"
+  fi
+  notify "$name" "$audio_len of audio${explained:+, $explained}${flags:+ (see checks)}"
+done
+exit $status

@@ -1,0 +1,24 @@
+type: severity-tag
+data:
+  title: "Severity vocabulary used in this report"
+  layout: grid
+  tags:
+    - name: "P0"
+      tone: danger
+      description: "Customer impact, no workaround. Drop everything."
+      when: "Active outage, data loss, or compliance breach."
+      sla: "Response under 15 min, mitigation under 1 h."
+    - name: "P1"
+      tone: warning
+      description: "Customer impact with workaround, or imminent risk of outage."
+      when: "Degraded service, escalating error rates."
+      sla: "Response under 1 h, mitigation under 4 h."
+    - name: "P2"
+      tone: info
+      description: "Not customer-facing yet, but should be addressed this sprint."
+      when: "Internal warning thresholds tripped, single-replica failures."
+      sla: "Response under 1 day."
+    - name: "P3"
+      tone: neutral
+      description: "Tracked but not prioritised."
+      when: "Minor noise, cosmetic issues."

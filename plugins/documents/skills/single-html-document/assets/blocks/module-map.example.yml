@@ -1,0 +1,18 @@
+type: module-map
+data:
+  title: "Repo layout · single-html-document"
+  columns:
+    - { label: "Authoring" }
+    - { label: "Build" }
+    - { label: "Runtime" }
+  modules:
+    - { id: content,   label: "content/",         column: 0, kind: entry,    summary: "Markdown + YAML sources" }
+    - { id: compiler,  label: "scripts/build*",   column: 1,                 summary: "Compiles content into typed JSON" }
+    - { id: blocks,    label: "scripts/blocks/",  column: 1, kind: hot-path, summary: "Vanilla JS renderers, one per block type" }
+    - { id: site,      label: "src/",             column: 2,                 summary: "Vite/React app or static HTML host" }
+    - { id: bundle,    label: "report.html",      column: 2, kind: package,  summary: "Single packaged deliverable" }
+  connections:
+    - { from: content,  to: compiler, label: "read" }
+    - { from: compiler, to: site,     label: "emit JSON" }
+    - { from: blocks,   to: site,     label: "imported" }
+    - { from: site,     to: bundle,   label: "package" }

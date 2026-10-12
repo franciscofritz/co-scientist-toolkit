@@ -1,0 +1,512 @@
+{
+ "_about": "Publisher terms on AI use of subscription content, as read on the date in 'checked'. Every subscription paper's full text is refused whatever its ai_policy, which the cards cite. ai_policy: restricted = the publisher says its content may not go into AI tools without a further licence (its free-to-read copies are refused too); reserved = AI or mining rights reserved, individual use not addressed; not_stated = nothing found on individual AI use; not_researched = not looked at yet. Re-check any entry older than six months, and send corrections as pull requests.",
+ "publishers": [
+  {
+   "key": "elsevier",
+   "name": "Elsevier",
+   "prefixes": [
+    "10.1016",
+    "10.1006",
+    "10.1053",
+    "10.1067",
+    "10.1054",
+    "10.1078"
+   ],
+   "names": [
+    "elsevier"
+   ],
+   "hosts": [
+    "sciencedirect.com",
+    "cell.com",
+    "thelancet.com",
+    "elsevier.com"
+   ],
+   "markers": [
+    "journal homepage:\\s*www\\.(elsevier|sciencedirect)\\.com",
+    "©\\s*\\d{4}[^\\n]{0,120}Elsevier",
+    "Published by Elsevier",
+    "Contents lists available at ScienceDirect"
+   ],
+   "ai_policy": "restricted",
+   "summary": "Elsevier says its agreements do not allow its content, ScienceDirect included, to be processed through public AI tools; private tools need a data licence and Elsevier's assessment.",
+   "sources": [
+    "https://elsevier.support/dataasaservice/news/faqs-on-the-commercial-use-of-elsevier-content-with-generative-ai"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "page read directly"
+  },
+  {
+   "key": "iop",
+   "name": "IOP Publishing",
+   "prefixes": [
+    "10.1088",
+    "10.1070"
+   ],
+   "names": [
+    "iop publishing",
+    "institute of physics"
+   ],
+   "hosts": [
+    "iopscience.iop.org",
+    "ioppublishing.org"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}IOP Publishing",
+    "Published by IOP Publishing"
+   ],
+   "ai_policy": "restricted",
+   "summary": "IOP's AI and TDM policy (July 2026) bars AI tools that make its content available to unauthorised third parties, retrieval systems and embeddings, and access through MCP servers or software agents without a separate agreement; an institutional licence with AI terms takes precedence.",
+   "sources": [
+    "https://ioppublishing.org/legal/textanddataminingpolicy/"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "page read directly"
+  },
+  {
+   "key": "sage",
+   "name": "SAGE",
+   "prefixes": [
+    "10.1177"
+   ],
+   "names": [
+    "sage publishing",
+    "sage publications"
+   ],
+   "hosts": [
+    "journals.sagepub.com",
+    "sagepub.com"
+   ],
+   "markers": [
+    "sagepub\\.com/journals-?permissions",
+    "journals\\.sagepub\\.com/home/",
+    "©\\s*\\d{4}[^\\n]{0,120}SAGE"
+   ],
+   "ai_policy": "restricted",
+   "summary": "Sage's TDM and AI policy says any AI use of its content, generative AI included, needs lawful access and a licence from Sage.",
+   "sources": [
+    "https://www.sagepub.com/tdm-ai-policy"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "page read directly"
+  },
+  {
+   "key": "springer-nature",
+   "name": "Springer Nature",
+   "prefixes": [
+    "10.1007",
+    "10.1038",
+    "10.1186",
+    "10.1140",
+    "10.1057",
+    "10.1023",
+    "10.1365"
+   ],
+   "names": [
+    "springer",
+    "nature portfolio",
+    "biomed central"
+   ],
+   "hosts": [
+    "link.springer.com",
+    "nature.com",
+    "springeropen.com",
+    "biomedcentral.com"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}Springer",
+    "©\\s*\\d{4}[^\\n]{0,80}Nature (Limited|America)",
+    "Springer Nature (Limited|Switzerland AG)"
+   ],
+   "ai_policy": "reserved",
+   "summary": "Springer Nature reserves mining and AI-training rights on content that is not open access; it says nothing specific about one person using an AI assistant.",
+   "sources": [
+    "https://dev.springernature.com/tdm-reservation-policy/"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "page read directly"
+  },
+  {
+   "key": "wiley",
+   "name": "Wiley",
+   "prefixes": [
+    "10.1002",
+    "10.1111",
+    "10.1046",
+    "10.1113"
+   ],
+   "names": [
+    "wiley"
+   ],
+   "hosts": [
+    "onlinelibrary.wiley.com",
+    "wiley.com"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}Wiley",
+    "Wiley Periodicals"
+   ],
+   "ai_policy": "reserved",
+   "summary": "Wiley's terms reserve mining and AI-training rights and bar AI-made derivative works.",
+   "sources": [
+    "https://onlinelibrary.wiley.com/terms-and-conditions"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "search extracts; the publisher's pages blocked direct reading"
+  },
+  {
+   "key": "oup",
+   "name": "Oxford University Press",
+   "prefixes": [
+    "10.1093"
+   ],
+   "names": [
+    "oxford university press"
+   ],
+   "hosts": [
+    "academic.oup.com"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}Oxford University Press",
+    "Published by Oxford University Press"
+   ],
+   "ai_policy": "reserved",
+   "summary": "OUP reserves AI rights, and its TDM page says mining permission does not cover uploading to a third-party AI service.",
+   "sources": [
+    "https://academic.oup.com/pages/purchasing/rights-and-permissions/text-and-data-mining"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "search extracts only"
+  },
+  {
+   "key": "tandf",
+   "name": "Taylor & Francis",
+   "prefixes": [
+    "10.1080",
+    "10.4324",
+    "10.1201"
+   ],
+   "names": [
+    "taylor & francis",
+    "informa",
+    "routledge"
+   ],
+   "hosts": [
+    "tandfonline.com"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}Taylor\\s*&\\s*Francis",
+    "Published by Taylor\\s*&\\s*Francis"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "Taylor & Francis allows non-commercial mining for subscribers; no statement found on individual AI use.",
+   "sources": [
+    "https://taylorandfrancis.com/our-policies/textanddatamining/"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "agent reading"
+  },
+  {
+   "key": "cup",
+   "name": "Cambridge University Press",
+   "prefixes": [
+    "10.1017"
+   ],
+   "names": [
+    "cambridge university press"
+   ],
+   "hosts": [
+    "cambridge.org"
+   ],
+   "markers": [
+    "©\\s*\\d{4}[^\\n]{0,120}Cambridge University Press",
+    "Published by Cambridge University Press"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "Cambridge allows non-commercial mining with lawful access; no statement found on AI tools.",
+   "sources": [
+    "https://www.cambridge.org/core/open-research/text-and-data-mining"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "agent reading"
+  },
+  {
+   "key": "aps",
+   "name": "American Physical Society",
+   "prefixes": [
+    "10.1103"
+   ],
+   "names": [
+    "american physical society"
+   ],
+   "hosts": [
+    "journals.aps.org",
+    "link.aps.org"
+   ],
+   "markers": [
+    "©\\s*\\d{4}\\s*American Physical Society",
+    "Published by the American Physical Society"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "APS requires a separate agreement for mining; no statement found on individual AI use.",
+   "sources": [
+    "https://journals.aps.org/licenses"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "agent reading"
+  },
+  {
+   "key": "aip",
+   "name": "AIP Publishing",
+   "prefixes": [
+    "10.1063"
+   ],
+   "names": [
+    "aip publishing",
+    "american institute of physics"
+   ],
+   "hosts": [
+    "pubs.aip.org"
+   ],
+   "markers": [
+    "AIP Publishing"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "AIP Publishing requires authorisation for mining; no statement found on individual AI use.",
+   "sources": [
+    "https://publishing.aip.org/resources/researchers/policies-and-ethics/ai-policy/"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "agent reading; the terms page blocked direct reading"
+  },
+  {
+   "key": "ieee",
+   "name": "IEEE",
+   "prefixes": [
+    "10.1109"
+   ],
+   "names": [
+    "institute of electrical and electronics engineers",
+    "ieee"
+   ],
+   "hosts": [
+    "ieeexplore.ieee.org"
+   ],
+   "markers": [
+    "©\\s*\\d{4}\\s*IEEE"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "IEEE allows non-commercial mining through its API; no statement found on individual AI use.",
+   "sources": [
+    "https://developer.ieee.org/"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "search extracts"
+  },
+  {
+   "key": "acm",
+   "name": "ACM",
+   "prefixes": [
+    "10.1145"
+   ],
+   "names": [
+    "association for computing machinery"
+   ],
+   "hosts": [
+    "dl.acm.org"
+   ],
+   "markers": [
+    "ACM Reference Format",
+    "©\\s*\\d{4}[^\\n]{0,120}Association for Computing Machinery"
+   ],
+   "ai_policy": "not_stated",
+   "summary": "The ACM Digital Library has been fully open access since January 2026: new articles are CC BY or CC BY-NC-ND, while papers before 2023 are free to read but not under a CC licence.",
+   "sources": [
+    "https://www.acm.org/publications/policies/publication-rights-and-licensing-policy"
+   ],
+   "checked": "2026-10-05",
+   "evidence": "agent reading"
+  },
+  {
+   "key": "pnas",
+   "name": "PNAS",
+   "prefixes": [
+    "10.1073"
+   ],
+   "names": [
+    "national academy of sciences"
+   ],
+   "hosts": [
+    "pnas.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "PNAS's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "aaas",
+   "name": "Science (AAAS)",
+   "prefixes": [
+    "10.1126"
+   ],
+   "names": [
+    "american association for the advancement of science"
+   ],
+   "hosts": [
+    "science.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "AAAS's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "royal-society",
+   "name": "The Royal Society",
+   "prefixes": [
+    "10.1098"
+   ],
+   "names": [
+    "royal society"
+   ],
+   "hosts": [
+    "royalsocietypublishing.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "The Royal Society's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "siam",
+   "name": "SIAM",
+   "prefixes": [
+    "10.1137"
+   ],
+   "names": [
+    "society for industrial and applied mathematics"
+   ],
+   "hosts": [
+    "epubs.siam.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "SIAM's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "world-scientific",
+   "name": "World Scientific",
+   "prefixes": [
+    "10.1142"
+   ],
+   "names": [
+    "world scientific"
+   ],
+   "hosts": [
+    "worldscientific.com"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "World Scientific's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "apa",
+   "name": "American Psychological Association",
+   "prefixes": [
+    "10.1037"
+   ],
+   "names": [
+    "american psychological association"
+   ],
+   "hosts": [
+    "psycnet.apa.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "APA's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "acs",
+   "name": "American Chemical Society",
+   "prefixes": [
+    "10.1021"
+   ],
+   "names": [
+    "american chemical society"
+   ],
+   "hosts": [
+    "pubs.acs.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "ACS's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "rsc",
+   "name": "Royal Society of Chemistry",
+   "prefixes": [
+    "10.1039"
+   ],
+   "names": [
+    "royal society of chemistry"
+   ],
+   "hosts": [
+    "pubs.rsc.org"
+   ],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "RSC's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  },
+  {
+   "key": "pleiades",
+   "name": "Pleiades Publishing",
+   "prefixes": [
+    "10.1134"
+   ],
+   "names": [
+    "pleiades publishing"
+   ],
+   "hosts": [],
+   "markers": [],
+   "ai_policy": "not_researched",
+   "summary": "Pleiades's AI terms have not been checked yet.",
+   "sources": [],
+   "checked": ""
+  }
+ ],
+ "open_venues": [
+  {
+   "hosts": [
+    "jmlr.org"
+   ],
+   "license": "cc-by",
+   "note": "JMLR papers are CC BY 4.0 from volume 18 (per jmlr.org author information, search extract).",
+   "markers": []
+  },
+  {
+   "hosts": [
+    "proceedings.mlr.press"
+   ],
+   "license": "cc-by",
+   "note": "PMLR papers are CC BY 4.0 (per the PMLR licence agreement, search extract).",
+   "markers": [
+    "\\bPMLR \\d+,? \\d{4}",
+    "Proceedings of Machine Learning Research"
+   ]
+  }
+ ],
+ "institutional_licence_note": "An institutional subscription licence grants its authorised users rights to read and use the content for research. This tool assumes it does not grant sending the full text to a third-party AI service, Claude included, unless your own institution's licence says otherwise."
+}

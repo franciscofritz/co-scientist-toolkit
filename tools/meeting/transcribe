@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# transcribe: local speech-to-text via whisper.cpp (no audio leaves this machine)
+#
+# Models are looked for in $WHISPER_MODEL_DIR (default ~/models/whisper). To use a model
+# elsewhere, set WHISPER_MODEL and WHISPER_VAD_MODEL to full paths.
+set -euo pipefail
+
+MODEL_DIR="${WHISPER_MODEL_DIR:-$HOME/models/whisper}"
+MODEL="${WHISPER_MODEL:-$MODEL_DIR/ggml-large-v3.bin}"
+VAD_MODEL="${WHISPER_VAD_MODEL:-$MODEL_DIR/ggml-silero-v6.2.0.bin}"
+LANGUAGE="auto"
+KEEP_WAV=0
+PROMPT=""
+NOCTX=0
+OVERWRITE=0
+DONE=0
+
+usage() {
+  cat <<'USAGE'
+Usage: transcribe [options] <file> [file ...]
+
+  -f, --fast       use large-v3-turbo: ~6x faster, a shade less accurate
+  -l, --lang CODE  force a language (en, zh, af, fr ...); default auto-detect
+  -k, --keep-wav   keep the converted 16 kHz wav beside the source
+  -p, --prompt TXT bias the vocabulary: names, jargon, acronyms it should expect.
+                   Applied to every window, not just the opening one. This is the
+                   single biggest accuracy win on technical or name-heavy audio.
+  -g, --group      group, far-mic or noisy-room audio: stop whisper feeding each
+                   window the previous window's text. Without it such audio makes
+                   it copy itself, repeating whole passages many times over.
+  -o, --overwrite  replace transcripts that already exist (otherwise that file is skipped)
+  -h, --help       show this
+
+Skips silence with whisper's voice filter when its model is present.
+Accepts any audio or video ffmpeg can read. Writes <name>.txt, <name>.srt
+and <name>.vtt beside each input file. Exits 1 if no file was transcribed.
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -f|--fast)     MODEL="$MODEL_DIR/ggml-large-v3-turbo.bin"; shift ;;
+    -l|--lang)     LANGUAGE="${2:?--lang needs a code}"; shift 2 ;;
+    -k|--keep-wav) KEEP_WAV=1; shift ;;
+    -p|--prompt)   PROMPT="${2:?--prompt needs text}"; shift 2 ;;
+    -g|--group)    NOCTX=1; shift ;;
+    -o|--overwrite) OVERWRITE=1; shift ;;
+    -h|--help)     usage; exit 0 ;;
+    --)            shift; break ;;
+    -*)            echo "unknown option: $1" >&2; usage >&2; exit 2 ;;
+    *)             break ;;
+  esac
+done
+
+[[ $# -ge 1 ]] || { usage >&2; exit 2; }
+
+if [[ ! -f "$MODEL" ]]; then
+  echo "model not found: $MODEL" >&2
+  echo "fetch it from https://huggingface.co/ggerganov/whisper.cpp" >&2
+  exit 1
+fi
+
+THREADS="$(sysctl -n hw.perflevel0.logicalcpu 2>/dev/null || echo 8)"
+
+for src in "$@"; do
+  if [[ ! -f "$src" ]]; then echo "skipping, not a file: $src" >&2; continue; fi
+  dir="$(cd "$(dirname "$src")" && pwd)"
+  base="$(basename "${src%.*}")"
+  wav="$dir/$base.16k.wav"
+  if [[ "$OVERWRITE" -eq 0 ]] && [[ -e "$dir/$base.txt" || -e "$dir/$base.srt" || -e "$dir/$base.vtt" ]]; then
+    echo "skipping, a transcript already exists (use --overwrite): $dir/$base.txt" >&2
+    continue
+  fi
+
+  echo "==> $base"
+  ffmpeg -nostdin -loglevel error -y -i "$src" -ar 16000 -ac 1 -c:a pcm_s16le "$wav"
+
+  prompt_args=()
+  [[ -n "$PROMPT" ]] && prompt_args=(--prompt "$PROMPT" --carry-initial-prompt)
+  vad_args=()
+  [[ -f "$VAD_MODEL" ]] && vad_args=(--vad -vm "$VAD_MODEL")
+  ctx_args=()
+  [[ "$NOCTX" -eq 1 ]] && ctx_args=(-mc 0)
+
+  whisper-cli -m "$MODEL" -f "$wav" -l "$LANGUAGE" -t "$THREADS" \
+              "${prompt_args[@]+"${prompt_args[@]}"}" \
+              "${vad_args[@]+"${vad_args[@]}"}" \
+              "${ctx_args[@]+"${ctx_args[@]}"}" \
+              -otxt -osrt -ovtt -of "$dir/$base" -pp
+
+  [[ "$KEEP_WAV" -eq 1 ]] || rm -f "$wav"
+  echo "    wrote $base.txt, $base.srt, $base.vtt"
+  DONE=$((DONE + 1))
+done
+
+[[ "$DONE" -gt 0 ]] || { echo "nothing was transcribed" >&2; exit 1; }

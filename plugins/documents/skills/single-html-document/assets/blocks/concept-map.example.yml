@@ -1,0 +1,17 @@
+type: concept-map
+data:
+  title: "Why authoring blocks separately matters"
+  nodes:
+    - { id: blocks,          label: "Typed blocks",          col: 0, row: 0, kind: key,     icon: package }
+    - { id: schema,          label: "Strict schema",         col: 0, row: 1, kind: success }
+    - { id: drift,           label: "Renderer/spec drift",   col: 1, row: 0, kind: danger,  icon: alert-triangle }
+    - { id: reuse,           label: "Reuse across pages",    col: 1, row: 1, kind: info }
+    - { id: agent,           label: "LLM authorability",     col: 2, row: 0, kind: success, icon: zap }
+    - { id: maintainability, label: "Long-term maintainability", col: 2, row: 1, kind: success }
+  edges:
+    - { from: blocks,  to: schema,           label: "is governed by", kind: dependsOn }
+    - { from: blocks,  to: reuse,            label: "enables",         kind: enables }
+    - { from: schema,  to: drift,            label: "prevents",        kind: contradicts }
+    - { from: schema,  to: agent,            label: "improves",        kind: causes }
+    - { from: reuse,   to: maintainability,  label: "supports",        kind: causes }
+    - { from: drift,   to: maintainability,  label: "undermines",      kind: contradicts }

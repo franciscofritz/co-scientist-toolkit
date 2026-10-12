@@ -1,0 +1,30 @@
+type: toggle-deps
+packaging: interactive
+data:
+  title: "Build options"
+  groups:
+    - { id: assets,   label: "Assets" }
+    - { id: delivery, label: "Delivery" }
+  toggles:
+    - id: inlineImages
+      group: assets
+      label: "Inline images as Base64"
+      default: true
+      description: "Required for offline `file://` delivery."
+    - id: gzipPayload
+      group: assets
+      label: "Compress text payloads with gzip"
+      default: false
+      dependencies: ["inlineImages"]
+      description: "Best with text-heavy reports. Requires inline images so the bootstrap can decompress on load."
+    - id: cdnAssets
+      group: delivery
+      label: "Pull fonts from a CDN"
+      default: false
+      conflicts: ["inlineImages"]
+      description: "Faster initial paint but breaks offline delivery."
+    - id: blobAttachments
+      group: delivery
+      label: "Materialise attachments as Blob URLs"
+      default: true
+      description: "Recommended for any report with downloadable PDFs, CSVs, or media."

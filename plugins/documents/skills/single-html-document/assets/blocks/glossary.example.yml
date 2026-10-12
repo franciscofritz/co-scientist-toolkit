@@ -1,0 +1,22 @@
+type: glossary
+data:
+  title: "Terms used in this report"
+  layout: stacked
+  terms:
+    - term: "Single-file HTML"
+      definition: |
+        A complete website (text, styles, scripts, media) collapsed into one
+        `.html` file that opens directly in a modern browser.
+      aliases: ["self-contained HTML", "portable HTML"]
+      related: ["Packaging mode"]
+    - term: "Packaging mode"
+      definition: |
+        Build-time strategy for collapsing assets into the deliverable. The
+        three named modes are **direct inline**, **Blob-backed payload**, and
+        **compressed bootstrap**.
+      aliases: ["delivery mode"]
+    - term: "Block"
+      definition: |
+        A typed piece of structured content with a colocated renderer. Blocks
+        let authors stay in YAML/JSON while keeping rich visual treatment in
+        the renderer layer.

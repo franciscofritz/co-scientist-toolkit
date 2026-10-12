@@ -1,0 +1,22 @@
+type: before-after
+data:
+  axis: horizontal
+  before:
+    label: "Before"
+    body: "Generated HTML inline; no schema; long files; no way to reuse the pattern."
+    code:
+      language: yaml
+      source: |
+        - type: callout
+          html: "<div class='warn'>Don't override the gate</div>"
+  after:
+    label: "After"
+    body: "Typed block, clear schema, renderer separate, packaging mode declared."
+    code:
+      language: yaml
+      source: |
+        - type: callout
+          data:
+            tone: warning
+            title: "Don't override the gate"
+            body: "Investigate the package first."

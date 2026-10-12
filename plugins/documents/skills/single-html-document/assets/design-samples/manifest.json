@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-05-10T17:11:35.404Z",
+  "options": [
+    {
+      "id": "composed-blocks-handbook",
+      "title": "Composed Blocks Handbook",
+      "sampleTitle": "Composed Blocks Handbook",
+      "webType": "block-pattern handbook",
+      "file": "composed-blocks-handbook.single.html",
+      "size": 220947
+    },
+    {
+      "id": "composed-blocks-walkthrough",
+      "title": "Composed Blocks Walkthrough",
+      "sampleTitle": "Why single-file HTML is a delivery format",
+      "webType": "narrative walkthrough using blocks",
+      "file": "composed-blocks-walkthrough.single.html",
+      "size": 203530
+    },
+    {
+      "id": "institutional-analytics",
+      "title": "Institutional Analytics",
+      "sampleTitle": "Institution AI Usage Analytics",
+      "webType": "operational analytics dashboard",
+      "file": "institutional-analytics.single.html",
+      "size": 13337
+    },
+    {
+      "id": "record-catalogue",
+      "title": "Record Catalogue",
+      "sampleTitle": "AI Stress Test Protocol Library",
+      "webType": "searchable record catalogue",
+      "file": "record-catalogue.single.html",
+      "size": 13982
+    },
+    {
+      "id": "committee-briefing",
+      "title": "Committee Briefing",
+      "sampleTitle": "AI Governance Committee Pack",
+      "webType": "committee briefing microsite",
+      "file": "committee-briefing.single.html",
+      "size": 9839
+    },
+    {
+      "id": "protocol-dossier",
+      "title": "Protocol Dossier",
+      "sampleTitle": "Interview Integrity Protocol",
+      "webType": "single protocol dossier",
+      "file": "protocol-dossier.single.html",
+      "size": 9384
+    },
+    {
+      "id": "tabbed-workshop",
+      "title": "Tabbed Workshop",
+      "sampleTitle": "AI Decision Workshop",
+      "webType": "facilitated workshop website",
+      "file": "tabbed-workshop.single.html",
+      "size": 12593
+    },
+    {
+      "id": "inspection-gallery",
+      "title": "Inspection Gallery",
+      "sampleTitle": "Image Capability Review Gallery",
+      "webType": "visual inspection gallery",
+      "file": "inspection-gallery.single.html",
+      "size": 22194
+    },
+    {
+      "id": "workshop-report",
+      "title": "Workshop Report",
+      "sampleTitle": "Research Practice Workshop",
+      "webType": "detailed workshop/event report",
+      "file": "workshop-report.single.html",
+      "size": 24853
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+type: faq
+data:
+  title: "Common questions"
+  defaultOpen: first
+  items:
+    - question: "Why not just generate one big HTML file directly?"
+      answer: |
+        Because authoring inside one giant HTML blob is brittle — you can't
+        diff it, restyle it, or reuse content. The skill's whole position is
+        that single-file is a **delivery format**, not an authoring format.
+    - question: "What about MHTML or Web Bundles?"
+      answer: |
+        Web Bundles had their navigation implementation removed from Chromium
+        in 2023; MHTML is a niche capture format. Plain `.html` is the only
+        format that opens reliably across modern browsers from disk.
+    - question: "Do I need React?"
+      answer: |
+        No. The block layer is pure vanilla JS. Use React when the site is
+        complex enough to benefit from it; use static HTML when it's not.

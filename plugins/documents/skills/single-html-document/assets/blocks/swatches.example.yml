@@ -1,0 +1,13 @@
+type: swatches
+packaging: interactive
+data:
+  title: "Institutional palette"
+  kind: color
+  copyValue: var
+  swatches:
+    - { name: "--ox-blue",   value: "#002147", role: "primary brand" }
+    - { name: "--ox-stone",  value: "#f5f1eb", role: "page background" }
+    - { name: "--ox-deep",   value: "#0f3d5e", role: "headings" }
+    - { name: "--ox-accent", value: "#ee6c4d", role: "callout accents" }
+    - { name: "--ox-success", value: "#2e6e40", role: "confirmed outcome" }
+    - { name: "--ox-danger",  value: "#aa323c", role: "do-not / breaking" }

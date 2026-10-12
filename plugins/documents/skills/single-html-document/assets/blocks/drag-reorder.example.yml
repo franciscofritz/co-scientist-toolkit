@@ -1,0 +1,15 @@
+type: drag-reorder
+packaging: interactive
+data:
+  title: "Sort the workshop topics"
+  lanes:
+    - { id: now,   label: "Cover today" }
+    - { id: maybe, label: "If time", cap: 3 }
+    - { id: skip,  label: "Skip" }
+  items:
+    - { id: deck-pattern, label: "Single-file deck pattern", lane: now }
+    - { id: blocks,       label: "Component block layer",     lane: now }
+    - { id: workbook,     label: "Feedback workbooks",        lane: maybe, tag: "long" }
+    - { id: catalogue,    label: "Generated catalogue",       lane: skip }
+    - { id: research,     label: "Research synthesis",        lane: maybe }
+  exportFormat: markdown

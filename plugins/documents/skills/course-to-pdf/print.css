@@ -1,0 +1,76 @@
+/* Textbook typography, overriding a site stylesheet written for screen reading.
+   Ordered by how much page each rule buys back. Measured on a 65,000-word course:
+   the measurements are in SKILL.md. */
+
+@page { size: A4; margin: 19mm 20mm 20mm; }
+
+/* 1. line-height and base size. Screen CSS runs 1.6-1.8; books run 1.3-1.4. */
+html, body { background:#fff; font-size:10pt !important; line-height:1.34 !important;
+             padding:0 !important; margin:0 !important; }
+p, li { line-height:1.34 !important; text-align:justify; hyphens:auto; -webkit-hyphens:auto; }
+p { margin:0 0 4.5pt !important; orphans:2; widows:2; }
+li { margin-bottom:1.5pt; }
+
+/* 2. container padding, paid on every single page */
+.container, .content, .main, .article, .prose, .page-content, main, article {
+  padding:0 !important; max-width:none !important; border:none !important; box-shadow:none !important; }
+
+/* 3. heading scale and the big margins above them */
+h1 { font-size:15pt !important; }
+h2, .section-title { font-size:12pt !important; margin:11pt 0 4pt !important; line-height:1.2 !important; }
+h3 { font-size:10.5pt !important; margin:8pt 0 3pt !important; }
+h4 { font-size:10pt !important; margin:0 0 3pt !important; }
+h1,h2,h3,h4 { break-after: avoid; }
+
+/* 4. callout boxes: screen padding is 18-28px, books want 7-9pt */
+.info-box, .warning-box, .technical-detail, .case-study, .lab-box, .highlight-box,
+.tool-card, .intro-text, .callout, .note, .aside, .box, blockquote {
+  padding:7pt 9pt !important; margin:7pt 0 !important; border-radius:3px !important; }
+.info-box p, .warning-box p, .technical-detail p, .case-study p, .lab-box p, .intro-text p,
+blockquote p { line-height:1.34 !important; margin:0 0 3.5pt !important; font-size:10pt !important; }
+.intro-text h2 { font-size:11.5pt !important; margin:0 0 3pt !important; }
+
+/* 5. responsive grids collapse to one full-width column in print. Force two-up. */
+.card-grid, .grid, .cards { grid-template-columns:1fr 1fr !important; gap:6pt !important; margin:6pt 0 !important; }
+.card { padding:6pt 8pt !important; border-radius:3px !important; break-inside:avoid; }
+.card h3 { font-size:10pt !important; margin:0 0 2pt !important; }
+.card p { font-size:9.2pt !important; line-height:1.3 !important; margin:0 0 2pt !important; }
+
+/* 6. lists, code, tables, figures */
+ul, ol, .styled-list { margin:4pt 0 6pt !important; padding-left:13pt !important; }
+.styled-list li { padding:0 0 0 11pt !important; line-height:1.32 !important; }
+pre, code { font-size:8.2pt !important; line-height:1.3 !important; }
+pre { padding:5pt 7pt !important; margin:5pt 0 !important; break-inside:avoid; }
+table { font-size:9pt !important; break-inside:avoid; }
+td, th { padding:2.5pt 5pt !important; }
+figure { margin:7pt 0 !important; break-inside:avoid; }
+figcaption { font-size:8.5pt !important; margin-top:3pt !important; }
+img, svg { max-width:100%; max-height:105mm; height:auto; }
+.formula { padding:5pt 8pt !important; margin:6pt 0 !important; font-size:10pt !important; break-inside:avoid; }
+a { color:inherit !important; text-decoration:none !important; }
+
+/* 7. page breaks belong at section boundaries, not at every sub-page */
+.pdfsection { break-before: page; }
+.pdfsection:first-of-type { break-before: auto; }
+.pdflesson { padding:0; max-width:none; margin-top:13pt; }
+.pdflesson header { padding:0 !important; margin:0 0 6pt !important; border-bottom:0.5pt solid #ccd4dc; }
+.pdflesson header h1 { font-size:15pt !important; margin:0 0 2pt !important; line-height:1.15 !important; }
+.pdflesson header p { font-size:9.5pt !important; color:#5a6672; margin:0 0 4pt !important; }
+.week-badge, .badge, .eyebrow { font-size:7.5pt !important; margin:0 0 2pt !important;
+  padding:0 !important; background:none !important; color:#5a6672 !important; letter-spacing:1px; }
+
+/* 8. front matter */
+.pdftitle { break-after: page; text-align:center; padding-top:75mm; }
+.pdftitle h1 { font-size:26pt !important; margin-bottom:6mm !important; }
+.pdftitle .pdfmeta { color:#5a6672; }
+.pdfcontents { break-after: page; }
+.pdfcontents h1 { font-size:16pt !important; margin-bottom:6pt !important; }
+.pdfcontents ol { line-height:1.5 !important; font-size:10pt; columns:2; column-gap:10mm; }
+
+/* 7. numbered headings. Sites mark the number as a leading span and give it a
+   right margin from a container-scoped rule (.abody h2 .secno). Fragments are
+   concatenated without their container, so that rule stops matching and the
+   heading prints as "3Three families of response". Scoped to the span's
+   POSITION rather than any site's class name, so it works everywhere. */
+h1 > span:first-child, h2 > span:first-child,
+h3 > span:first-child, h4 > span:first-child { margin-right:.5em; }

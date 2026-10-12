@@ -1,0 +1,269 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500&display=swap">
+<style>
+/* Decision page template (decision-page skill, assets/decision-page.html). Edit only the PAGE object in the
+   script. Layout: one column of decision cards grouped by section, a sticky tally bar, a general
+   comment box at the end. Choices save to the db doc choices/current:
+   {picks:{id:optionId}, items:{id:{itemId:bool}}, notes:{id:text}, general, updatedAt}. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #18212b;
+  --muted: #5b6875;
+  --line: #d9dfe5;
+  --accent: #2f5d86;
+  --pick: #9a5b13;
+  --pick-wash: #fbf1e4;
+  --done: #2e6b4a;
+  --font-display: "IBM Plex Serif", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171c; --surface: #1a2128; --ink: #e4e9ee; --muted: #93a1ae; --line: #2c3540;
+    --accent: #8db8e0; --pick: #e2a35a; --pick-wash: #2b2117; --done: #7fc79e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171c; --surface: #1a2128; --ink: #e4e9ee; --muted: #93a1ae; --line: #2c3540;
+  --accent: #8db8e0; --pick: #e2a35a; --pick-wash: #2b2117; --done: #7fc79e; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; display: grid; gap: 28px; }
+header { display: grid; gap: 6px; }
+h1 { font-family: var(--font-display); font-weight: 500; font-size: 1.75rem; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin: 0; }
+h3 { font-size: 1.02rem; font-weight: 600; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 65ch; }
+.lede { color: var(--muted); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+.tally { font-variant-numeric: tabular-nums; }
+.tally strong { color: var(--pick); font-weight: 600; }
+.status { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.status[data-state="error"] { color: var(--pick); }
+.tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+button { font: inherit; font-size: 0.85rem; padding: 5px 11px; border-radius: 6px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+button:hover { background: var(--accent); color: var(--surface); }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section.group { display: grid; gap: 12px; }
+.group > .note { font-size: 0.88rem; color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.card.decided { border-color: var(--done); }
+.card-head { display: flex; gap: 8px 12px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
+.state { font-size: 0.72rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.card.decided .state { border-color: var(--done); color: var(--done); }
+.detail { display: grid; gap: 6px; font-size: 0.92rem; }
+.detail p { overflow-wrap: anywhere; }
+.sources { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); overflow-wrap: anywhere; }
+.rec { font-size: 0.9rem; background: var(--pick-wash); border-radius: 6px; padding: 8px 10px; display: grid; gap: 2px; }
+.rec .lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--pick); font-weight: 600; }
+.options { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.options legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.opt { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 10px; align-items: start; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+.opt input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--pick); cursor: pointer; }
+.opt.on { border-color: var(--pick); background: var(--pick-wash); }
+.opt .olabel { font-weight: 500; }
+.opt .odetail { grid-column: 2; font-size: 0.85rem; color: var(--muted); }
+.opt .mine { font-size: 0.7rem; color: var(--pick); margin-left: 6px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.items { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 10px; padding: 7px 9px; border-top: 1px solid var(--line); align-items: start; cursor: pointer; }
+.item:first-child { border-top: 0; }
+.item input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--pick); cursor: pointer; }
+.item.on { background: var(--pick-wash); }
+.item .itext { overflow-wrap: anywhere; font-size: 0.9rem; }
+.item .imeta { grid-column: 2; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item .iact { grid-column: 2; font-size: 0.8rem; color: var(--pick); }
+.item-head { font-size: 0.8rem; color: var(--muted); }
+.row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+textarea { font: inherit; font-size: 0.875rem; width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); resize: vertical; min-height: 2.2em; }
+textarea::placeholder { color: var(--muted); }
+.general { display: grid; gap: 8px; }
+.general textarea { min-height: 6em; }
+@media (prefers-reduced-motion: no-preference) { .opt, .item, .card { transition: background-color 120ms ease, border-color 120ms ease; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <div class="bar">
+    <span class="tally" id="tally">Loading your saved choices…</span>
+    <span class="tools">
+      <span class="status" id="status" aria-live="polite"></span>
+      <button type="button" id="all-recs">Accept all Claude's picks</button>
+    </span>
+  </div>
+
+  <div id="groups" style="display:grid;gap:28px"></div>
+
+  <section class="general" aria-labelledby="h-general">
+    <h2 id="h-general"><label for="general">General comment</label></h2>
+    <textarea id="general" placeholder="Anything else, or anything these cards missed"></textarea>
+  </section>
+</div>
+
+<script>
+/* ---- PAGE DATA: the only part a new decision page changes. ----
+   decision: {id, title, detail:[para...], sources?, options:[{id,label,detail?}], rec, why}
+   batch:    {id, title, detail:[...], sources?, items:[{id,text,meta?,action?,rec?}], recAll, why, itemVerb}
+             ticked items get their own `action` if given, else itemVerb. `rec` (per item) or
+             recAll sets what "Accept Claude's picks" ticks. */
+const PAGE = {
+  title: "__TITLE__",
+  lede: "__LEDE__",
+  groups: []
+};
+/* ---- end of page data ---- */
+
+let state = { picks: {}, items: {}, notes: {}, general: "" };
+let ref = null, writing = Promise.resolve(), pending = null, editing = false;
+const cards = {};
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const all = PAGE.groups.flatMap(g => g.cards);
+function setStatus(t, kind) { const s = $("status"); s.textContent = t; s.dataset.state = kind || ""; }
+
+function isDecided(c) {
+  if (c.items) return state.items[c.id] !== undefined;
+  return !!state.picks[c.id];
+}
+
+function build() {
+  $("title").textContent = PAGE.title;
+  $("lede").textContent = PAGE.lede;
+  const host = $("groups");
+  for (const g of PAGE.groups) {
+    const sec = el("section", "group");
+    const h = el("h2", null, g.title); h.id = "g-" + g.id; sec.setAttribute("aria-labelledby", h.id);
+    sec.append(h);
+    if (g.note) sec.append(el("p", "note", g.note));
+    for (const c of g.cards) sec.append(buildCard(c));
+    host.append(sec);
+  }
+  $("general").addEventListener("input", (e) => { state.general = e.target.value; save(); });
+}
+
+function buildCard(c) {
+  const card = el("article", "card"); card.id = "card-" + c.id;
+  const head = el("div", "card-head");
+  head.append(el("h3", null, c.title), el("span", "state", "Open"));
+  card.append(head);
+  const det = el("div", "detail");
+  for (const p of c.detail || []) det.append(el("p", null, p));
+  if (c.sources) det.append(el("p", "sources", c.sources));
+  card.append(det);
+  const rec = el("div", "rec");
+  rec.append(el("span", "lbl", "Claude's pick"), el("span", null, c.why));
+  card.append(rec);
+  const parts = { card, opts: {}, items: {} };
+
+  if (c.items) {
+    const list = el("div", "items");
+    list.append(el("div", "item-head", c.itemVerb));
+    for (const it of c.items) {
+      const row = el("label", "item");
+      const box = el("input"); box.type = "checkbox"; box.id = "it-" + c.id + "-" + it.id;
+      box.addEventListener("change", () => {
+        const cur = { ...(state.items[c.id] || defaultItems(c)) }; cur[it.id] = box.checked;
+        state.items = { ...state.items, [c.id]: cur }; paint(); save();
+      });
+      row.append(box, el("span", "itext", it.text));
+      if (it.meta) row.append(el("span", "imeta", it.meta));
+      if (it.action) row.append(el("span", "iact", (it.rec === false ? "If ticked: " : "Claude's pick: ") + it.action));
+      list.append(row); parts.items[it.id] = { row, box };
+    }
+    card.append(list);
+    const acts = el("div", "row-actions");
+    const a = el("button", null, "Tick all"); a.type = "button";
+    a.addEventListener("click", () => { state.items = { ...state.items, [c.id]: defaultItems(c, true) }; paint(); save(); });
+    const n = el("button", null, "Untick all"); n.type = "button";
+    n.addEventListener("click", () => { state.items = { ...state.items, [c.id]: defaultItems(c, false) }; paint(); save(); });
+    acts.append(a, n); card.append(acts);
+  } else {
+    const fs = el("fieldset", "options");
+    fs.append(el("legend", null, c.title));
+    for (const o of c.options) {
+      const row = el("label", "opt");
+      const r = el("input"); r.type = "radio"; r.name = "pick-" + c.id; r.id = "pick-" + c.id + "-" + o.id; r.value = o.id;
+      r.addEventListener("change", () => { state.picks = { ...state.picks, [c.id]: o.id }; paint(); save(); });
+      const lab = el("span", "olabel", o.label);
+      if (o.id === c.rec) lab.append(el("span", "mine", "Claude's pick"));
+      row.append(r, lab);
+      if (o.detail) row.append(el("span", "odetail", o.detail));
+      fs.append(row); parts.opts[o.id] = { row, r };
+    }
+    card.append(fs);
+  }
+  const note = el("textarea"); note.id = "note-" + c.id; note.rows = 1;
+  note.placeholder = "Comment (optional)"; note.setAttribute("aria-label", "Comment on " + c.title);
+  note.addEventListener("input", () => { state.notes = { ...state.notes, [c.id]: note.value }; save(); });
+  card.append(note); parts.note = note;
+  cards[c.id] = parts;
+  return card;
+}
+
+function defaultItems(c, v) {
+  const o = {}; for (const it of c.items) o[it.id] = v === undefined ? (it.rec !== undefined ? !!it.rec : !!c.recAll) : v; return o;
+}
+
+function paint() {
+  let n = 0;
+  for (const c of all) {
+    const r = cards[c.id];
+    const d = isDecided(c); if (d) n++;
+    r.card.classList.toggle("decided", d);
+    r.card.querySelector(".state").textContent = d ? "Decided" : "Open";
+    if (c.items) {
+      const cur = state.items[c.id];
+      for (const [k, v] of Object.entries(r.items)) { const on = cur ? !!cur[k] : false; v.box.checked = on; v.row.classList.toggle("on", on); }
+    } else {
+      for (const [k, v] of Object.entries(r.opts)) { const on = state.picks[c.id] === k; v.r.checked = on; v.row.classList.toggle("on", on); }
+    }
+    if (document.activeElement !== r.note) r.note.value = state.notes[c.id] || "";
+  }
+  const g = $("general"); if (document.activeElement !== g) g.value = state.general || "";
+  const t = $("tally"); t.replaceChildren();
+  t.append(el("strong", null, String(n)), " of " + all.length + " decided");
+}
+
+function save() {
+  if (!ref) { setStatus("Not saved: this view can't store changes", "error"); return; }
+  clearTimeout(pending); editing = true;
+  setStatus("Saving…");
+  pending = setTimeout(() => {
+    const body = { picks: state.picks, items: state.items, notes: state.notes, general: state.general, updatedAt: new Date().toISOString() };
+    writing = writing.then(() => ref.set(body)).then(() => { editing = false; setStatus("Saved"); }, (e) => {
+      editing = false;
+      setStatus(e && e.code === "invalid_argument" ? "Read-only: only the owner can edit" : "Not saved, try again", "error");
+    });
+  }, 600);
+}
+
+$("all-recs").addEventListener("click", () => {
+  const p = { ...state.picks }, it = { ...state.items };
+  for (const c of all) { if (c.items) { if (state.items[c.id] === undefined) it[c.id] = defaultItems(c); } else if (!p[c.id]) p[c.id] = c.rec; }
+  state = { ...state, picks: p, items: it }; paint(); save();
+});
+
+build();
+paint();
+setStatus("Connecting…");
+
+(async () => {
+  let db = null;
+  try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
+  if (!db) { setStatus("Choices can't be saved in this view", "error"); $("tally").textContent = "Open this page on claude.ai to save choices"; return; }
+  ref = db.doc("choices/current");
+  ref.onSnapshot((snap) => {
+    if (snap.metadata.hasPendingWrites || editing) return;
+    const d = snap.exists ? snap.data() : null;
+    state = { picks: { ...(d && d.picks || {}) }, items: { ...(d && d.items || {}) }, notes: { ...(d && d.notes || {}) }, general: (d && d.general) || "" };
+    paint();
+    setStatus(d ? "Saved" : "Nothing chosen yet");
+  }, () => setStatus("Lost connection; reload to keep saving", "error"));
+})();
+</script>
