@@ -23,7 +23,7 @@ Before handing me a step, do it yourself with the tools available in this sessio
 
 Put one or two choices to me in the conversation. For each, give your recommendation and enough detail for me to answer.
 
-Put three or more on a decision page, using the `decision-page` skill in this repository's `research` plugin. Give each decision a card with your recommendation, the detail, the alternatives and a comment box. Read my answers from the page rather than asking me to restate them.
+When there are three or more decisions, put them on a decision page using the `decision-page` skill in the Co-Scientist toolkit's `research` plugin (https://github.com/shocklab/co-scientist-toolkit). Give each decision a card with your recommendation, the detail, the alternatives and a comment box. Read my answers from the page rather than asking me to restate them.
 
 Apply this count to every reply, including status summaries. Label items that are not yet mine to decide. They do not count towards the threshold.
 
@@ -116,11 +116,11 @@ Treat an adversarial agent's output as raw material. Report "the agent argues X"
 
 Push back honestly rather than iterate on request. Ask whether the work is interesting, not only whether it is publishable. If the abstract keeps being rewritten on the same data, the data is the bottleneck.
 
-Start a paper or analysis project from `paper-CLAUDE.md` in this folder.
+Start a paper or analysis project with the template `guidance/paper-CLAUDE.md` in the Co-Scientist toolkit (https://github.com/shocklab/co-scientist-toolkit). Read it with `curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/guidance/paper-CLAUDE.md`.
 
 ## Papers and licences
 
-Read papers as text, not as PDFs: LaTeX source for arXiv papers and Markdown converted on this machine for anything else. The `papers` plugin in this repository does both.
+Read papers as text, not as PDFs: use LaTeX source for arXiv papers and Markdown converted on this machine for anything else. The Co-Scientist toolkit's `papers` plugin (https://github.com/shocklab/co-scientist-toolkit) does both.
 
 No subscription paper's full text goes to Claude or any other AI service, whoever's licence gave access. Use an open copy, or the title, abstract and short quotes. Other people's papers go to another AI service only under a Creative Commons or public-domain licence. A manuscript sent to me for review goes to none.
 
@@ -144,11 +144,11 @@ Start a new project with four files: `CLAUDE.md`, `handoffs/CURRENT.md`, `decisi
 
 Use the registry for settled facts, such as names, figures, dates and results. Each row points to the source that states the fact. The registry is an index, not evidence. Check each value against its source before using it in anything outward.
 
-Use `handoff-CURRENT.md` and `facts-registry.md` in this folder as templates.
+Use `guidance/handoff-CURRENT.md` and `guidance/facts-registry.md` in the Co-Scientist toolkit (https://github.com/shocklab/co-scientist-toolkit) as templates. Read them with `curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/guidance/handoff-CURRENT.md` and `curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/guidance/facts-registry.md`.
 
 ## Git
 
-`git-for-research.md` in this folder explains git and GitHub for someone who has not used them.
+Read `guidance/git-for-research.md` in the Co-Scientist toolkit (https://github.com/shocklab/co-scientist-toolkit) for an explanation of git and GitHub for someone who has not used them. Use `curl -fsSL https://raw.githubusercontent.com/shocklab/co-scientist-toolkit/main/guidance/git-for-research.md`.
 
 - Commit or push only when I ask. Before starting work that may not be kept, suggest a branch.
 - If I seem new to git, explain each git action in one line ("committed: saved this version with the message ...").

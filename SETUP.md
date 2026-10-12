@@ -71,6 +71,9 @@ This tells Claude Code where to find the toolkit's plugins. It installs nothing 
 Ask about the user's work one area at a time. Use the README to explain what each tool
 does and what it needs. Install each chosen plugin with
 `claude plugin install <plugin>@co-scientist-toolkit`.
+Installing a plugin installs all of its skills. The questions below decide only which extra
+software to install. In your report, list every skill in each installed plugin as installed,
+and say which skills still need extra software before they work.
 Then install only the software needed by the skills the user chooses from that plugin.
 
 Papers. Ask: "Do you read or write papers with Claude?" If yes, install `papers`.
