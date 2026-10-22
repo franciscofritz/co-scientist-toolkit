@@ -123,7 +123,8 @@ Ask whether the user wants to install `research`. Only `mathematica` needs addit
 software: Mathematica or the Wolfram Engine with `wolframscript`.
 If neither is installed, explain that the other four skills work without it.
 
-Documents. Ask: "Do you make slide decks, typeset PDFs, or HTML documents?"
+Documents. Ask: "Do you make slide decks, typeset PDFs, HTML documents, or narrated
+explainer videos?"
 If yes, install `documents`. Decks and PDFs need pandoc, XeLaTeX, LibreOffice, poppler
 (`brew install poppler`) and the Python packages `python-pptx` and `matplotlib`. XeLaTeX comes
 from a TeX distribution: recommend MacTeX, a download of several gigabytes. A user who has
@@ -132,6 +133,9 @@ BasicTeX instead needs
 which asks for the Mac's password, so the user runs it in the Terminal app.
 Single-file HTML needs Node.js 20.19 or later (or 22.12 or later) and npm.
 Binding a course website into a PDF needs Chrome or Chromium and poppler.
+Explainer videos need Manim (`uv tool install --python 3.12 manim`), ffmpeg, a TeX distribution
+and the `tts` command from pdf2audio (the Audio question above gives its install command). The
+voice model is a download of under 400 MB on first use.
 Install only what the chosen skills need.
 
 After each installation, check that it worked using `--version` or the check given in

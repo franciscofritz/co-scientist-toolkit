@@ -11,8 +11,8 @@ researchers who use Claude in their work. They come out of daily use on our own 
 - `research` (plugin): assessing whether an idea is worth pursuing, checking whether revisions
   are converging, working through hard problems with five gates, making decision pages, and using
   Mathematica.
-- `documents` (plugin): slide decks, typeset PDFs, single-file HTML documents, and courses bound
-  as books.
+- `documents` (plugin): slide decks, typeset PDFs, single-file HTML documents, courses bound
+  as books, and narrated explainer videos.
 - `guidance/`: a starter `CLAUDE.md` with the working rules we have found most useful, a template
   for reproducible analysis projects, a guide to git for researchers, and templates for a project's
   handoff and facts registry.
@@ -123,6 +123,9 @@ The `documents` plugin makes finished documents from notes and Markdown:
   dashboard, a review workbook) that opens in any browser with nothing else installed.
 - `course-to-pdf` binds a course or documentation website into one printable PDF, set for print
   rather than the screen.
+- `explainer-video` makes a short narrated animation of an idea, derivation or result, in the
+  style of 3Blue1Brown: Manim draws it, Kokoro speaks the narration on your Mac, and Claude checks
+  that the sound is complete and that no label sits on a line before handing it over.
 
 ## Install
 
@@ -169,7 +172,9 @@ In the `research` plugin, `mathematica` needs Mathematica or the Wolfram Engine 
 `decision-page`, need nothing. For decks and PDFs, the `documents` plugin needs pandoc, XeLaTeX,
 LibreOffice, poppler (`brew install poppler`, for `pdftoppm` and `pdftotext`) and the Python
 packages `python-pptx` and `matplotlib`. Single-file HTML needs Node.js 20.19 or later (or 22.12 or
-later). Courses need Chrome or Chromium. MacTeX includes every package the PDF header loads.
+later). Courses need Chrome or Chromium. Explainer videos need Manim
+(`uv tool install --python 3.12 manim`), ffmpeg, LaTeX and the `tts` command from pdf2audio.
+MacTeX includes every package the PDF header and Manim's equations load.
 For BasicTeX, `polished-docs-and-decks` gives the `tlmgr` command to install the missing packages.
 
 The tools are written for macOS on Apple silicon. The meeting tool and NextUp run only on a Mac.

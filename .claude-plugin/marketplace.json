@@ -34,7 +34,7 @@
     {
       "name": "documents",
       "source": "./plugins/documents",
-      "description": "Typeset PDFs and slide decks from Markdown, self-contained HTML documents, and a course or docs site bound into one printable PDF",
+      "description": "Typeset PDFs and slide decks from Markdown, self-contained HTML documents, a course or docs site bound into one printable PDF, and narrated explainer videos made with Manim",
       "version": "0.1.0"
     }
   ]

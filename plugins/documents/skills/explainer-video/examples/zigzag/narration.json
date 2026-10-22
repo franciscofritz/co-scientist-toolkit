@@ -1,0 +1,22 @@
+[
+ {
+  "id": "s1",
+  "text": "Gradient descent takes each step in the direction of steepest descent."
+ },
+ {
+  "id": "s2",
+  "text": "Here the loss is a narrow valley. It curves ten times more steeply across the valley than along it."
+ },
+ {
+  "id": "s3",
+  "text": "So the steepest direction points mostly across the valley, not along it. Each step overshoots the floor of the valley, and the next step comes back."
+ },
+ {
+  "id": "s4",
+  "text": "With a step size of zero point one eight, each step multiplies the position across the valley by minus zero point eight. That is the zig-zag. Along the valley, each step multiplies the position by zero point eight two, so progress toward the minimum is slow."
+ },
+ {
+  "id": "s5",
+  "text": "The step size is limited by the steepest direction, and the shallow direction pays for it. Rescaling the problem removes the zig-zag, and momentum reduces it."
+ }
+]

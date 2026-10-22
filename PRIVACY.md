@@ -49,6 +49,7 @@ and error reports. These details are from Anthropic's
 | `mathematica` | Nothing from the toolkit. Wolfram's software checks its licence with Wolfram | Wolfram | As specified by Wolfram's licence |
 | `polished-docs-and-decks` | Nothing | | |
 | `single-html-document` | Nothing about your documents. Installing the Vite tools downloads packages from the npm registry | The npm registry | Setup |
+| `explainer-video` | Nothing about the video. Kokoro's weights are downloaded once, and each narration run asks Hugging Face whether the model has changed, sending the model's name and your IP address | Hugging Face (Kokoro, under 400 MB); PyPI (Manim) | Setup; the Hugging Face check on each run |
 | `course-to-pdf` | The MathJax script from cdn.jsdelivr.net when the pages contain maths and the site has no KaTeX; anything the site's own stylesheet loads from the web | cdn.jsdelivr.net; wherever the site's stylesheet points | Each run |
 
 The licence-check hook and the `license-check` command store their records on your machine in
